@@ -25,6 +25,8 @@ Accepted rules:
 - deletions and additions will be lower and capital case respectively.
 - adding to miR name the modification one byt one. Need to agree in character separation.
 
+## Discussion
+
 ### From Lorena
 
 Right now, I have tags for each type of modification I found:
