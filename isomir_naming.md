@@ -21,9 +21,21 @@ In miRNAs, the variations that can be observed are (highlighted the most common)
   -	Combinations
 
 Accepted rules:
-
 - deletions and additions will be lower and capital case respectively.
 - adding to miR name the modification one byt one. Need to agree in character separation.
+
+** Naming in papers**
+
+miR name plus modification added after that (need discussion an examples)
+
+**File format**
+
+tab format with following columns (need discussion):
+
+- sequence
+- mirna name
+- precursor
+- isomir TAGs in the sequence
 
 ## Discussion
 
