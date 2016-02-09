@@ -1,4 +1,4 @@
-### Annotation agreement
+## Annotation agreement
 
 This section will have the result of the discussion for the naming.
 
@@ -36,6 +36,7 @@ tab format with following columns (need discussion):
 - mirna name
 - precursor
 - isomir TAGs in the sequence
+- CIGAR for an unbiased way to describe sequence (maybe the tool can have a function that read CIGAR and give paper naming)
 
 ## Discussion
 
