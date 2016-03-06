@@ -26,11 +26,11 @@ Accepted rules:
 - changes affecting the 5' end will have 's' as letter to indicate this side, other wise means 3' changes.
 - non-template addition will have a 'e' as letter to indicate this process. Need to differentiate between mutations in the middle or seed and adding nts at the end. 'e' stand for extension.
 
-** Naming in papers**
+### ** Naming in papers**
 
 miR name plus modification added after that, see below(need discussion an examples)
 
-**File format**
+### **File format**
 
 tab format with following columns (need discussion):
 
@@ -40,7 +40,7 @@ tab format with following columns (need discussion):
 - isomir TAGs in the sequence
 - CIGAR for an unbiased way to describe sequence (maybe the tool can have a function that read CIGAR and give paper naming)
 
-**Examples**
+### **Examples**
 
 Adapting simplest examples
 
