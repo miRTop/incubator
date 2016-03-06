@@ -44,18 +44,18 @@ tab format with following columns (need discussion):
 
 Adapting simplest examples
 
-```
-RefSeq-miRNA	                  AAACAAAAAAAAAAAAAAAAA	miRA-5p (21 nt long)
-3' end deletion	                AAACAAAAAAAAAAAAAAAA	miRA-5p.a21
-3' end deletion	                AAACAAAAAAAAAAAAAAA	miRA-5p.a21.a20 (deletion, size)
-3' end non-templated addition	  AAACAAAAAAAAAAAAAAAAAT	miRA-5p.A22Te (template nt, size, non-template nt)
-3' end templated addition	      AAACAAAAAAAAAAAAAAAAAA	miRA-5p.A22 (template nt, size)
-5' end deletion	                 AACAAAAAAAAAAAAAAAAA	miRA-5p.as (template nt - lower case, s meaning 5' end)
-5' end templated addition	    AAAACAAAAAAAAAAAAAAAAA	miRA-5p.As (template nt - upper case, s meaning 5' end)
-5' end templated addition	   AAAAACAAAAAAAAAAAAAAAAA	miRA-5p.AAs (template nt - upper case, s meaning 5' end)
-Seed Edition	                 AAACAAGAAAAAAAAAAAAAA	miRA-5p.A7G (standard mutation naming)
-all together                  AAAACAAGAAAAAAAAAAAAAAAT miRNA-5p.As.A7G.A22.A23Te
-```
+<pre>
+RefSeq-miRNA-------------------AAACAAAAAAAAAAAAAAAAA	miRA-5p (21 nt long)
+3 end deletion-----------------AAACAAAAAAAAAAAAAAAA	miRA-5p.a21
+3 end deletion-----------------AAACAAAAAAAAAAAAAAA	miRA-5p.a21.a20 (deletion, size)
+3 end non-templated addition---AAACAAAAAAAAAAAAAAAAAT	miRA-5p.A22Te (template nt, size, non-template nt)
+3 end templated addition-------AAACAAAAAAAAAAAAAAAAAA	miRA-5p.A22 (template nt, size)
+5 end deletion-----------------AACAAAAAAAAAAAAAAAAA	miRA-5p.as (template nt - lower case, s meaning 5 end)
+5 end templated addition------AAAACAAAAAAAAAAAAAAAAA	miRA-5p.As (template nt - upper case, s meaning 5 end)
+5 end templated addition-----AAAAACAAAAAAAAAAAAAAAAA	miRA-5p.AAs (template nt - upper case, s meaning 5 end)
+Seed Edition-------------------AAACAAGAAAAAAAAAAAAAA	miRA-5p.A7G (standard mutation naming)
+all together------------------AAAACAAGAAAAAAAAAAAAAAAT miRNA-5p.As.A7G.A22.A23Te
+</pre>
 
 
 ## Discussion
