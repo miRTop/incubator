@@ -1,7 +1,7 @@
-# microRNA gene and products Nomenclature (created by Thomas Desvignes)
+# microRNA gene and products Nomenclature
 
 The situation:
-Clear unambiguous microRNA naming is essential for accurate communication. Many ways have been used over the years to name microRNA genes, their products but also their intermediate forms (primary transcript and precursor). miRBase, the international reference microRNA database, Gene Nomenclature Consortia (HGNC, MGI, ZFIN, etc...) used to use different nomenclature guidelines.
+Clear and unambiguous microRNA naming is essential for accurate communication. Many ways have been used over the years to name microRNA genes, their products but also their intermediate forms (primary transcripts and precursors). miRBase, the international reference microRNA database, Gene Nomenclature Consortia (HGNC, MGI, ZFIN, etc...), and researchers often use different nomenclature systems.
 
 A unified nomenclature system is needed to improve communication.
 
@@ -13,7 +13,7 @@ The optimal system should:
 A unified system for microRNA naming would permit more efficient communication between researchers within a species or across species because the naming would be consistent and follow familiar guidelines used for protein-coding genes.
   
 *Note:*
-*Plants miRNA research is facing the same problems. The different origin of plant and metazoan miRNA systems, however, make the creation of a unified “plant &amp; metazoan” pattern hazardous. Nevertheless, tentative standardization on specific aspects is a future goal of the group.*
+*Plants miRNA research is facing the same problems. The different origin of plant and metazoan miRNA systems, however, make the creation of a unified “plant and metazoan” pattern hazardous. Nevertheless, tentative standardization on specific aspects is a future goal of the group.*
 
 *Budak, H., Bulut, R., Kantar, M., &amp; Alptekin, B. (2015). MicroRNA nomenclature and the need for a revised naming prescription. Briefings in Functional Genomics, elv026–. <a href="http://doi.org/10.1093/bfgp/elv026">http://doi.org/10.1093/bfgp/elv026</a>*
 
@@ -25,18 +25,18 @@ Fromm, B., Billipp, T., Peck, L. E., Johansen, M., Tarver, J. E., King, B. L., N
 
 One article (Fromm et al, 2015) focused on evolutionary conservation and clear orthology establishment to provide phylogenetically informative names based on Human annotation, while the other (Desvignes et al, 2015) envisioned a system for sequence variation analysis following nomenclature guidelines in use for protein-coding genes. 
 
-The first system (Fromm et al, 2015) has the advantage of establishing clear orthologies between genes across species and rename orthologs in a similar way in all species and harmonizes names within a miRNA family. Some problems, however, exist with this system: 
-  1) a lot of names are modified. A lot of researchers have been now used to specific microRNA numbers for years. Changing many names, even though clarifying evolutionary links, can be confusing and is unlikely to be followed.
+The Fromm et al system (2015) has the advantage of establishing clear orthologies between genes across species and rename orthologs in a similar way in all species and harmonizes names within a miRNA family. Some problems, however, exist with this system: 
+  1) a lot of names are modified. Most researchers have now been used to specific microRNA numbers for years. Changing many names, even though clarifying evolutionary relationships between microRNAs, can be confusing and is unlikely to be followed.
   2) the nomenclature system chosen doesn't follow any of the gene nomenclature guidelines established by Nomenclature consortia. miRNAs are also genes and should thus follow similar guidelines.
-  3) the complete system is Human centric and poses problem because Human should not be envisioned as the end or start point in evolutionary studies, and also because this human-centered system is not evolutionarily robust with genome duplication events such as the two rounds of whole genome duplication that occurred at the stem of the vertebrate radiation, or the teleost specific whole genome duplication event.
+  3) the complete system is Human centric and poses problem because Human should not be envisioned as the end or start point in evolutionary studies, and also because this human-centered system is not evolutionarily robust with for example genome duplication events such as the two rounds of whole genome duplication that occurred at the stem of the vertebrate radiation, or the teleost specific whole genome duplication event.
 
-The second system (Desvignes et al, 2015) on the other hand, doesn't changes the number constituting the name but encourages researchers, when identifying new miRNAs, to perform accurate phylogenetic verifications to provide phylogenetically conform names. In addition, this nomenclature system has been elaborated in collaboration with Mouse and Zebrafish Gene nomenclature consortia (MGI and ZFIN respectively), and is now the system in use in these gene nomenclature authorities. It is also in agreement with the guidelines in use for Human and other animal models. Finally, the phylogenetic relationship between orthologs or co-orthologs are dealt similarly to protein-coding gene and is thus a system already used by everyone, and can be phylogenetically accurate when appropriately used. 
+The second system (Desvignes et al, 2015) on the other hand, doesn't changes the number constituting the microRNA name but strongly encourages researchers, when identifying new miRNAs, to perform accurate phylogenetic verifications to provide phylogenetically conform names. In addition, this nomenclature system has been elaborated in collaboration with Mouse and Zebrafish Gene nomenclature consortia (MGI and ZFIN respectively) to follow general gene nomenclature guidelines, and is now the system in use in these gene nomenclature authorities. It is also in agreement with the guidelines in use for Human and other animal models. Finally, the phylogenetic relationship between orthologs, co-orthologs and paralogs are dealt similarly to relationships between protein-coding genes and is thus a system already used by everyone and phylogenetically robust. 
 
-Because Gene Nomenclature Consortia use of the nomenclature system proposed by Desvignes et al, we propose that this nomenclature system be the one used a basis.
+Because Gene Nomenclature Consortia use of the nomenclature system proposed by Desvignes et al, we propose that this nomenclature system be the one used as our basis.
 
 #Star or not star?
-The use of the start strand denomination '*' is not approved by any nomenclature consortium, including miRBase. Nonetheless, for cases of extreme difference in levels of expression, this additional symbol can provide potentially useful functional information. If people wants to use it informally, I would not see any objections.
-But because of the risk of fluctuation, which was the motivation of its removal in first place, an official use, from my point of view, can't be promoted. Indeed, the denomination would rely too much on sequencing depth and the nature of the tissue studied. In addition, at what level of arm selection can we say that a strand is likely only a by-product? Fromm et al propose a two-fold change. This appears to me not strong enough of a difference to call the second strand star strand, given the non-representation of the complete expressed miRNAOme of an organism and the sequence bias known in miRNA-Seq library preparation. I would suggest at least a 10-fold change and a good representation of tissue types in the organism considered.
+The use of the start strand denomination '*' is not approved by any nomenclature consortium, including miRBase. Nonetheless, for cases of extreme differences in levels of expression, this additional symbol can convey potentially useful functional information. If people wants to use it informally, I would not see any objections.
+But because of the risk of fluctuation of expression levels, which was the motivation for the removal of the star denomination in the first place, an official use, from my point of view, can't be promoted. Indeed, this denomination relies too much on sequencing depth and the nature of the tissue studied. In addition, at what level of arm selection can we say that a strand is likely only a by-product? Fromm et al propose a two-fold change. This appears to me not strong enough of a difference to call the second strand star strand, given the non-representation of the complete expressed miRNAOme of an organism and the sequence bias known in miRNA-Seq library preparation. I would suggest at least a 10-fold change and a good representation of tissue types in the organism considered.
 
 #The microRNA genes and products agreement:
 
