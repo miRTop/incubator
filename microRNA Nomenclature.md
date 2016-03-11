@@ -1,4 +1,4 @@
-# microRNA Nomenclature (created by Thomas Desvignes)
+# microRNA gene and products Nomenclature (created by Thomas Desvignes)
 
 The situation:
 Clear unambiguous microRNA naming is essential for accurate communication. Many ways have been used over the years to name microRNA genes, their products but also their intermediate forms (primary transcript and precursor). miRBase, the international reference microRNA database, Gene Nomenclature Consortia (HGNC, MGI, ZFIN, etc...) used to use different nomenclature guidelines.
@@ -18,7 +18,7 @@ A unified system for microRNA naming would permit more efficient communication b
 *Budak, H., Bulut, R., Kantar, M., &amp; Alptekin, B. (2015). MicroRNA nomenclature and the need for a revised naming prescription. Briefings in Functional Genomics, elv026–. <a href="http://doi.org/10.1093/bfgp/elv026">http://doi.org/10.1093/bfgp/elv026</a>*
 
 #Comments from Thomas Desvignes:
-#Two recent articles from two independent groups have simultaneously proposed novel nomenclature guidelines to improve microRNA naming:
+Two recent articles from two independent groups have simultaneously proposed novel nomenclature guidelines to improve microRNA naming:
 Desvignes, T., Batzel, P., Berezikov, E., Eilbeck, K., Eppig, J. T., McAndrews, M. S., Singer, A., Postlethwait, J. H. (2015). miRNA Nomenclature: A View Incorporating Genetic Origins, Biosynthetic Pathways, and Sequence Variants. Trends in Genetics : TIG, 31(11), 613–626. <a href="http://doi.org/10.1016/j.tig.2015.09.002">http://doi.org/10.1016/j.tig.2015.09.002</a>
 
 Fromm, B., Billipp, T., Peck, L. E., Johansen, M., Tarver, J. E., King, B. L., Newcomb J., Sempere L. F., Flatmark K., Hovig E., Peterson, K. J. (2015). A Uniform System for the Annotation of Vertebrate microRNA Genes and the Evolution of the Human microRNAome. Annual Review of Genetics. <a href="http://doi.org/10.1146/annurev-genet-120213-092023">http://doi.org/10.1146/annurev-genet-120213-092023</a> (<a href="http://mirgenedb.org">http://mirgenedb.org</a>)</li>
@@ -39,18 +39,20 @@ The use of the start strand denomination '*' is not approved by any nomenclature
 But because of the risk of fluctuation, which was the motivation of its removal in first place, an official use, from my point of view, can't be promoted. Indeed, the denomination would rely too much on sequencing depth and the nature of the tissue studied. In addition, at what level of arm selection can we say that a strand is likely only a by-product? Fromm et al propose a two-fold change. This appears to me not strong enough of a difference to call the second strand star strand, given the non-representation of the complete expressed miRNAOme of an organism and the sequence bias known in miRNA-Seq library preparation. I would suggest at least a 10-fold change and a good representation of tissue types in the organism considered.
 
 #The microRNA genes and products agreement:
+<pre>
            Symbol	                 Signifies
-Human	     Mouse	    Zebrafish	
-MIRX	     MirX	      mirX	       microRNA gene X
-MIRXy	     MirXy	    mirXy	       yth member of the mirX family (y can be a letter or a "dot-number")
-MIRXOS	   MirXos	    mirXos	     mirror microRNA gene of the microRNA gene X 
-pri-MIRX	 pri-MiRX   pri-miRX	   primary microRNA transcript X
-pre-MIRX	 pre-MiRX	  pre-miRX	   microRNA precursor X
-MIRX-5p	   MIRX-5p	  MiRX-5p	5'   arm mature miRNA sequence 
-MIRX-3p	   MIRX-3p	  MiRX-3p	3'   arm mature miRNA sequence 
-MORX-5p	   MORX-5p	  MoRX-5p	5'   arm mature moR sequence 
-MORX-3p	   MORX-3p	  MoRX-3p	3'   arm mature moR sequence 
-LORX	     LORX	      LoRX	       loop fragment of the miRNA precursor
-MIRCX	     MircX	    mircX	       mir gene cluster X
+Human	        Mouse	      Zebrafish	
+MIRX	        MirX	      mirX	         microRNA gene X
+MIRXy	        MirXy	      mirXy	         yth member of the mirX family (y can be a letter or a "dot-number")
+MIRXOS          MirXos	      mirXos	     mirror microRNA gene of the microRNA gene X 
+pri-MIRX	    pri-MiRX     pri-miRX	     primary microRNA transcript X
+pre-MIRX	    pre-MiRX	  pre-miRX	     microRNA precursor X
+MIRX-5p	        MIRX-5p	      MiRX-5p	5'     arm mature miRNA sequence 
+MIRX-3p	        MIRX-3p	      MiRX-3p	3'     arm mature miRNA sequence 
+MORX-5p	        MORX-5p	      MoRX-5p	5'     arm mature moR sequence 
+MORX-3p	        MORX-3p	      MoRX-3p	3'     arm mature moR sequence 
+LORX	        LORX	      LoRX	         loop fragment of the miRNA precursor
+MIRCX	        MircX	      mircX	         mir gene cluster X
+</pre>
 
 If you want to add the nomenclature system for another species, please do so.
