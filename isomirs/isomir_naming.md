@@ -24,7 +24,8 @@ Accepted rules:
 - deletions and additions will be lower and capital case respectively.
 - adding to miR name the modification one byt one. Need to agree in character separation [.].
 - changes affecting the 5' end will have 's' as letter to indicate this side, other wise means 3' changes.
-- non-template addition will have a 'e' as letter to indicate this process. Need to differentiate between mutations in the middle or seed and adding nts at the end. 'e' stand for extension.
+- non-template addition will have a 'e' as letter to indicate this process.
+- muation will follow the REF_NT - position - NEW_NT: A13T
 
 ### ** Naming in papers**
 
@@ -46,15 +47,15 @@ Adapting simplest examples
 
 <pre>
 RefSeq-miRNA-------------------AAACAAAAAAAAAAAAAAAAA	miRA-5p (21 nt long)
-3 end deletion-----------------AAACAAAAAAAAAAAAAAAA	miRA-5p.a21
-3 end deletion-----------------AAACAAAAAAAAAAAAAAA	miRA-5p.a21.a20 (deletion, size)
-3 end non-templated addition---AAACAAAAAAAAAAAAAAAAAT	miRA-5p.A22Te (template nt, size, non-template nt)
-3 end templated addition-------AAACAAAAAAAAAAAAAAAAAA	miRA-5p.A22 (template nt, size)
+3 end deletion-----------------AAACAAAAAAAAAAAAAAAA	miRA-5p.a
+3 end deletion-----------------AAACAAAAAAAAAAAAAAA	miRA-5p.aa (deletion, size)
+3 end non-templated addition---AAACAAAAAAAAAAAAAAAAAT	miRA-5p.Te (non-template nt)
+3 end templated addition-------AAACAAAAAAAAAAAAAAAAAA	miRA-5p.A (size)
 5 end deletion-----------------AACAAAAAAAAAAAAAAAAA	miRA-5p.as (template nt - lower case, s meaning 5 end)
 5 end templated addition------AAAACAAAAAAAAAAAAAAAAA	miRA-5p.As (template nt - upper case, s meaning 5 end)
 5 end templated addition-----AAAAACAAAAAAAAAAAAAAAAA	miRA-5p.AAs (template nt - upper case, s meaning 5 end)
 Seed Edition-------------------AAACAAGAAAAAAAAAAAAAA	miRA-5p.A7G (standard mutation naming)
-all together------------------AAAACAAGAAAAAAAAAAAAAAAT miRNA-5p.As.A7G.A22.A23Te
+all together------------------AAAACAAGAAAAAAAAAAAAAAAT miRNA-5p.As.A7G.A.Te
 </pre>
 
 
