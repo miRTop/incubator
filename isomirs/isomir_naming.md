@@ -5,38 +5,38 @@ This section will have the result of the discussion for the naming.
 In miRNAs, the variations that can be observed are (highlighted the most common): 
 
 -	3’ modifications:
-  -	**Nucleotide deletions**
-  - **Non-templated nucleotide additions**
-  - **Templated nucleotide additions**
+    -	**Nucleotide deletions**
+    - **Non-templated nucleotide additions**
+    - **Templated nucleotide additions**
 -	5’ modifications:
-  - **Nucleotide deletions (-> Seed-shift)**
-  - Non-templated nucleotide additions (-> Seed-shift) **can this happen**
-  - Nucleotide deletions compensated by Non-templated additions (nb: we can only analyze this case, if there is deletion followed by templated addition, there is no visible difference with the non-modified 5’ miRNA)
-  - **Templated nucleotide additions (-> Seed-shift)**
+    - **Nucleotide deletions (-> Seed-shift)**
+    - Non-templated nucleotide additions (-> Seed-shift) **can this happen?**
+    - Nucleotide deletions compensated by Non-templated additions (nb: we can only analyze this case, if there is deletion followed by templated addition, there is no visible difference with the non-modified 5’ miRNA)
+    - **Templated nucleotide additions (-> Seed-shift)**
 -	Editions (they are all the same but we can differentiate 3 types based on their putative effect on function):
-  - **In the seed**
-  - **In the 3’ complementary region**
+    - **In the seed**
+    - **In the 3’ complementary region**
 - Outside the seed or 3’CR
   -	Insertions and Deletions: I personally never observed such modifications but technically they are possible.
   -	Combinations
 
 Accepted rules:
 - deletions and additions will be lower and capital case respectively.
-- adding to miR name the modification one byt one. Need to agree in character separation [.].
+- adding to miRNA name the modification one by one. Need to agree in character separation [.].
 - changes affecting the 5' end will have 's' as letter to indicate this side, other wise means 3' changes.
 - non-template addition will have a 'e' as letter to indicate this process.
 - muation will follow the REF_NT - position - NEW_NT: A13T
 
 ### ** Naming in papers**
 
-miR name plus modification added after that, see below(need discussion an examples)
+miRNA name plus modification added after that, see below (need discussion an examples)
 
 ### **File format**
 
 tab format with following columns (need discussion):
 
 - sequence
-- mirna name
+- miRNA name
 - precursor
 - isomir TAGs in the sequence
 - CIGAR for an unbiased way to describe sequence (maybe the tool can have a function that read CIGAR and give paper naming)
@@ -46,16 +46,16 @@ tab format with following columns (need discussion):
 Adapting simplest examples
 
 <pre>
-RefSeq-miRNA-------------------AAACAAAAAAAAAAAAAAAAA	miRA-5p (21 nt long)
-3 end deletion-----------------AAACAAAAAAAAAAAAAAAA	miRA-5p.a
-3 end deletion-----------------AAACAAAAAAAAAAAAAAA	miRA-5p.aa (deletion, size)
-3 end non-templated addition---AAACAAAAAAAAAAAAAAAAAT	miRA-5p.Te (non-template nt)
-3 end templated addition-------AAACAAAAAAAAAAAAAAAAAA	miRA-5p.A (size)
-5 end deletion-----------------AACAAAAAAAAAAAAAAAAA	miRA-5p.as (template nt - lower case, s meaning 5 end)
-5 end templated addition------AAAACAAAAAAAAAAAAAAAAA	miRA-5p.As (template nt - upper case, s meaning 5 end)
-5 end templated addition-----AAAAACAAAAAAAAAAAAAAAAA	miRA-5p.AAs (template nt - upper case, s meaning 5 end)
-Seed Edition-------------------AAACAAGAAAAAAAAAAAAAA	miRA-5p.A7G (standard mutation naming)
-all together------------------AAAACAAGAAAAAAAAAAAAAAAT miRNA-5p.As.A7G.A.Te
+RefSeq-miRNA-------------------AAACAAAAAAAAAAAAAAAAA	 miRA-5p (21 nt long)
+3 end deletion-----------------AAACAAAAAAAAAAAAAAAA	 miRA-5p.a
+3 end deletion-----------------AAACAAAAAAAAAAAAAAA	 miRA-5p.aa (deletion, size)
+3 end non-templated addition---AAACAAAAAAAAAAAAAAAAAT	 miRA-5p.Te (non-template nt)
+3 end templated addition-------AAACAAAAAAAAAAAAAAAAAA	 miRA-5p.A (size)
+5 end deletion------------------AACAAAAAAAAAAAAAAAAA	 miRA-5p.as (template nt - lower case, s meaning 5 end)
+5 end templated addition------AAAACAAAAAAAAAAAAAAAAA	 miRA-5p.As (template nt - upper case, s meaning 5 end)
+5 end templated addition-----AAAAACAAAAAAAAAAAAAAAAA	 miRA-5p.AAs (template nt - upper case, s meaning 5 end)
+Seed Edition-------------------AAACAAGAAAAAAAAAAAAAA	 miRA-5p.A7G (standard mutation naming)
+all together------------------AAAACAAGAAAAAAAAAAAAAAAT   miRNA-5p.As.A7G.A.Te
 </pre>
 
 
@@ -111,18 +111,18 @@ I think this system is informative and not too heavy but we probably need to thi
 
 ```
 Description	Sequence	Name
-DNA	                          AAAAACAAAAAAAAAAAAAAAAAAA	mirA
-RefSeq-miRNA	                  AAACAAAAAAAAAAAAAAAAA	miRA-5p
-3' end deletion	                AAACAAAAAAAAAAAAAAAA	miRA-5p-a21
+DNA	                          AAAAACAAAAAAAAAAAAAAAAAAA	miRA
+RefSeq-miRNA	                  AAACAAAAAAAAAAAAAAAAA	  miRA-5p
+3' end deletion	                AAACAAAAAAAAAAAAAAAA	  miRA-5p-a21
 3' end non-templated addition	  AAACAAAAAAAAAAAAAAAAAT	miRA-5p-A22T
 3' end templated addition	      AAACAAAAAAAAAAAAAAAAAA	miRA-5p-A22
-5' end deletion	                 AACAAAAAAAAAAAAAAAAA	miRA-5p-as
-5' end non-templated addition	TAAACAAAAAAAAAAAAAAAAA	miRA-5p-AsT
-5' end templated addition	    AAAACAAAAAAAAAAAAAAAAA	miRA-5p-As
-Seed Edition	                 AAACAAGAAAAAAAAAAAAAA	miRA-5p-A7G
-3' CR edition	                 AAACAAAAAAAAAGAAAAAAA	miRA-5p-A14G
-Other edition	                 AAACAAAAAAGAAAAAAAAAA	miRA-5p-A11G
-Combination Ex1	               AAACAAGAAAAAAAAAAAAA	miRA-5p-A7G-a21
-Combination Ex2	               AAACAAAAAAAAAGAAAAAAAT	miRA-5p-A14G-A22T
-Combination Ex3	              TAAACAAGAAAAAAAAAAAAAAT	miRA-5p-AsT-A7G-A22T
+5' end deletion	                 AACAAAAAAAAAAAAAAAAA	  miRA-5p-as
+5' end non-templated addition	TAAACAAAAAAAAAAAAAAAAA	  miRA-5p-AsT
+5' end templated addition	    AAAACAAAAAAAAAAAAAAAAA	  miRA-5p-As
+Seed Edition	                 AAACAAGAAAAAAAAAAAAAA	  miRA-5p-A7G
+3' CR edition	                 AAACAAAAAAAAAGAAAAAAA	  miRA-5p-A14G
+Other edition	                 AAACAAAAAAGAAAAAAAAAA	  miRA-5p-A11G
+Combination Ex1	               AAACAAGAAAAAAAAAAAAA	    miRA-5p-A7G-a21
+Combination Ex2	               AAACAAAAAAAAAGAAAAAAAT	  miRA-5p-A14G-A22T
+Combination Ex3	              TAAACAAGAAAAAAAAAAAAAAT	  miRA-5p-AsT-A7G-A22T
 ```
