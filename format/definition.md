@@ -3,7 +3,7 @@ As discussed here: https://github.com/miRTop/incubator/issues/10 we'll try to de
 
 authors: @lpantano @gurgese @ThomasDesvignes @mhalushka @mlhack @keilbeck @BastianFromm @ivlachos @TJU-CMC 
 
-GFF3 definition: http://gmod.org/wiki/GFF3
+GFF3 definition: https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md
 
 **Goals**
 
