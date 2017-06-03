@@ -25,9 +25,9 @@ Please add description for each columnd/attribute
   * genome version used (maybe try to get from BAM file if GFF3 generated from it)
   * sample names used in attribute:Expression
 * column1: seqID:
-* column2: source:
-* column3: type:
-* column4/5: start/end:
+* column2: source: databases used for the annotation (miRBase, mirDBgene,tRNA...etc)
+* column3: type: canonical, isomiR (here we can add maybe, a better description tag), 
+* column4/5: start/end: question about precursor position or genomic position?
 * column6: score:
 * column7: strand:
 * column8: phase: (For features of type "CDS", the phase indicates where the feature begins with reference to the reading frame)
