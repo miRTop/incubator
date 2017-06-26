@@ -21,12 +21,13 @@ Note: Keep in mind this is for the output of a pipeline, so we know there will b
 Please add description for each columnd/attribute
 
 * header:
+  * database: `##source-ontology LINK TO DATABASE` include version
   * commands used to generate the file. At least information about adapter removal and filtering
   * genome version used (maybe try to get from BAM file if GFF3 generated from it)
   * sample names used in attribute:Expression
 * column1: seqID:
-* column2: source: databases used for the annotation (miRBase, mirDBgene,tRNA...etc)
-* column3: type: canonical, isomiR (here we can add maybe, a better description tag), 
+* column2: source: databases used for the annotation (miRBase, mirDBgene,tRNA...etc): https://github.com/miRTop/incubator/issues/13
+* column3: type: ref_miRNA, isomiRs: https://github.com/miRTop/incubator/issues/13  (SO:0002166 ref_miRNA and SO:0002167)
 * column4/5: start/end: question about precursor position or genomic position?
 * column6: score:
 * column7: strand:
