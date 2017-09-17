@@ -12,6 +12,7 @@ https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?token=whipakmajrwprcv&acc=GSE9458
 ## Tools
 
 * miraligner + isomiRs - On charge Lorena Pantano
+* isomiR-SEA - On charge Gianvito Urgese
 * [Add your tool here and person will do it]
 
 ## Questions to address
