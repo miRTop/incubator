@@ -11,8 +11,10 @@ https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?token=whipakmajrwprcv&acc=GSE9458
 
 ## Tools
 
-* miraligner + isomiRs - On charge Lorena Pantano
+* bcbio smallRNA-seq pipeline + isomiRs - On charge Lorena Pantano
 * isomiR-SEA - On charge Gianvito Urgese
+* ChimiRa, miRge - On charge Marck Halushka
+* sRNAbench - On charge Michael Hackenberg
 * [Add your tool here and person will do it]
 
 ## Questions to address
@@ -27,5 +29,9 @@ https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?token=whipakmajrwprcv&acc=GSE9458
 * Run with all the tools listed above
 * Put data in common space
 * Adapt output tools to GFF format
+
+### Random sample
+
+Sample SRR5756178 is a whole blood small RNA-seq run from this manuscript https://academic.oup.com/nar/article/4080663 and is part of project PRJNA391912.  It has ~ 2.8 million reads, of which ~2.6 million are miRNAs.
 
 ### [To be added]
