@@ -32,6 +32,6 @@ https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?token=whipakmajrwprcv&acc=GSE9458
 
 ### Random sample
 
-Sample SRR5756178 is a whole blood small RNA-seq run from this manuscript https://academic.oup.com/nar/article/4080663 and is part of project PRJNA391912.  It has ~ 2.8 million reads, of which ~2.6 million are miRNAs.
+Sample [SRR5756178](https://www.ncbi.nlm.nih.gov/sra/?term=SRR5756178) is a whole blood small RNA-seq run from this manuscript https://academic.oup.com/nar/article/4080663 and is part of project PRJNA391912.  It has ~ 2.8 million reads, of which ~2.6 million are miRNAs.
 
 ### [To be added]
