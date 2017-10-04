@@ -36,9 +36,11 @@ Please add description for each columnd/attribute
 * column8: phase: (For features of type "CDS", the phase indicates where the feature begins with reference to the reading frame): Not relevant righ now. This can be: `.`
 * column9: attributes: 
   * ID: unique ID based on sequence like mintmap has for tRNA: prefix-22-BZBZOS4Y1 (https://github.com/TJU-CMC-Org/MINTmap/tree/master/MINTplates). good way to use it as cross-mapper ID between different naming or future changes. The tool will implement this, so an API can be used to fill this field.
+  * UID: universal ID made of characters coding 3 NTs into 1 character
+  * Read: read name
   * Name: mature name
   * Parent: hairpin precursor name
-  * Variant: categorical types: iso_5p, iso_3p, iso_snp(_seed/_central_supp), iso_add (adapted from isomiR-SEA)
+  * Variant: categorical types: iso_5p, iso_3p, iso_snp(_seed(2-8)/_central(9-12)/_central_offset(8)/_central_supp(13-17)), iso_add (adapted from isomiR-SEA)
   * Cigar: CIGAR string as indicated [here](https://samtools.github.io/hts-specs/SAMv1.pdf). It is the standard CIGAR for aligners. With the restriction that `M` means match always.
   * Alias (Optional): get names from miRBase/miRgeneDB or other database separated by `,`
   * Genomic: positions on the genome in the following format: `chr:start-end,chr:start-end`
