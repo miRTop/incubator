@@ -35,15 +35,15 @@ Please add description for each columnd/attribute
 * column7: strand. In the case of mapping against precursor should be always `+`. It should accept mapping against the genome: `+/-` allowed.
 * column8: phase: (For features of type "CDS", the phase indicates where the feature begins with reference to the reading frame): Not relevant righ now. This can be: `.`
 * column9: attributes: 
-  * ID: unique ID based on sequence like mintmap has for tRNA: prefix-22-BZBZOS4Y1 (https://github.com/TJU-CMC-Org/MINTmap/tree/master/MINTplates). good way to use it as cross-mapper ID between different naming or future changes. The tool will implement this, so an API can be used to fill this field.
-  * UID: universal ID made of characters coding 3 NTs into 1 character
+  * UID: unique ID based on sequence like mintmap has for tRNA: prefix-22-BZBZOS4Y1 (https://github.com/TJU-CMC-Org/MINTmap/tree/master/MINTplates). good way to use it as cross-mapper ID between different naming or future changes. The tool will implement this, so an API can be used to fill this field. Currently supported by [mirtop](https://github.com/miRTop/mirtop/blob/dev/mirtop/mirna/realign.py#L124) code.
   * Read: read name
   * Name: mature name
   * Parent: hairpin precursor name
   * Variant: categorical types: iso_5p, iso_3p, iso_snp(_seed(2-8)/_central(9-12)/_central_offset(8)/_central_supp(13-17)), iso_add (adapted from isomiR-SEA)
   * Cigar: CIGAR string as indicated [here](https://samtools.github.io/hts-specs/SAMv1.pdf). It is the standard CIGAR for aligners. With the restriction that `M` means match always.
+  * Hits: number of hits in the database.
   * Alias (Optional): get names from miRBase/miRgeneDB or other database separated by `,`
-  * Genomic: positions on the genome in the following format: `chr:start-end,chr:start-end`
+  * Genomic (Optional): positions on the genome in the following format: `chr:start-end,chr:start-end`
   * Expression: raw counts separated by `,`. It should be in the same order than `colData` in the header.
   * Filter: PASS or REJECT (this allow to keep all the data and select the one you really want to conside as valid features). PASS can have subclases: `PASS:te`: meaning the sequence pass but the tools consider variants showed here are not trusted. REJECT can go with any short word explaining why it was rejected: `REJECT:lowcounts`. In this case the sequence will be skipped for data mining of the file when quering counts or summarize miRNA expression.
   * Seed_fam (Optional): in the format of 2-8 nts and reference miRNA sharing the seed. Usefull to go for pre-computed target predictions: `ATGCTGT:mir34a_5p`
@@ -60,4 +60,4 @@ Developing an API to check the format and help with the following feature will h
 
 I think python is a good way, installing via pipy or conda should get people using it pretty quickly. 
 
-Repo: https://github.com/miRTop/mirtop (right now is adapted to produce tab format but the idea is to migrate to this)
+Repo: https://github.com/miRTop/mirtop
