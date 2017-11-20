@@ -39,7 +39,11 @@ Please add description for each columnd/attribute
   * Read: read name
   * Name: mature name
   * Parent: hairpin precursor name
-  * Variant: categorical types: iso_5p, iso_3p, iso_snp(_seed(2-8)/_central(9-12)/_central_offset(8)/_central_supp(13-17)), iso_add (adapted from isomiR-SEA)
+  * Variant: (categorical types - adapted from isomiR-SEA)
+    * iso_5p:+/-N. `+` indicates extra nucleotides not in the reference miRNA. `-` indicates removed nucleotides not in the sequence. `N` the number of nucleotides of difference. For instance, if the sequence starts 2 nts after the reference miRNA, the label will be: `iso_5p:-2`, but if it starts before, the label will be `iso_5p:+2`.
+    * iso_3p:+/-N. Same explanation applied.
+    * iso_snp(_seed(2-8)/_central(9-12)/_central_offset(8)/_central_supp(13-17))
+    * iso_add:+N. Same explanation applied.
   * Cigar: CIGAR string as indicated [here](https://samtools.github.io/hts-specs/SAMv1.pdf). It is the standard CIGAR for aligners. With the restriction that `M` means match always.
   * Hits: number of hits in the database.
   * Alias (Optional): get names from miRBase/miRgeneDB or other database separated by `,`
