@@ -48,7 +48,7 @@ Please add description for each columnd/attribute
     * iso_snp_central: when affected nucleotides are betweem [9-12].
     * iso_central_supp: when affected nucleotides are betweem [13-17].
     * iso_snp: anything else.
-  * Cigar: CIGAR string as indicated [here](https://samtools.github.io/hts-specs/SAMv1.pdf). It is the standard CIGAR for aligners. With the restriction that `M` means match always.
+  * Cigar: CIGAR string as indicated [here](https://samtools.github.io/hts-specs/SAMv1.pdf). It is the standard CIGAR for aligners. With the restriction that `M` means exact match always. That's a difference with some aligners where `M` includes mismatches. In this case, if there is a mismatch, then it should be output like: `11MA7M` to indicates there is a mismatch at position 12, where `A` is the reference nucleotide.
   * Hits: number of hits in the database.
   * Alias (Optional): get names from miRBase/miRgeneDB or other database separated by `,`
   * Genomic (Optional): positions on the genome in the following format: `chr:start-end,chr:start-end`
