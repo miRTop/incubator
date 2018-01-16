@@ -43,8 +43,8 @@ Please add description for each columnd/attribute
     * iso_5p:+/-N. `+` indicates extra nucleotides not in the reference miRNA. `-` indicates removed nucleotides not in the sequence. `N` the number of nucleotides of difference. For instance, if the sequence starts 2 nts after the reference miRNA, the label will be: `iso_5p:-2`, but if it starts before, the label will be `iso_5p:+2`.
     * iso_3p:+/-N. Same explanation applied.
     * iso_add:+N. Same explanation applied.
-    * iso_snp_seed: when affected nucleotides are betweem [2-8].
-    * iso_central_offset: when affected nucleotides is at position [8].
+    * iso_snp_seed: when affected nucleotides are betweem [2-7].
+    * iso_snp_central_offset: when affected nucleotides is at position [8].
     * iso_snp_central: when affected nucleotides are betweem [9-12].
     * iso_central_supp: when affected nucleotides are betweem [13-17].
     * iso_snp: anything else.
