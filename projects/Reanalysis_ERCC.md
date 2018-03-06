@@ -15,6 +15,8 @@ https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?token=whipakmajrwprcv&acc=GSE9458
 * isomiR-SEA - On charge Gianvito Urgese
 * ChimiRa, miRge - On charge Marck Halushka
 * sRNAbench - On charge Michael Hackenberg
+* Prost - Thomas Desvignes
+* miRGe - Marc K. Halushka
 * [Add your tool here and person will do it]
 
 ## Questions to address
@@ -25,10 +27,10 @@ https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?token=whipakmajrwprcv&acc=GSE9458
 
 ### Set up
 
-* Select random public data
-* Run with all the tools listed above
-* Put data in common space
-* Adapt output tools to GFF format
+* [X] Select random public data
+* [X] Run with all the tools listed above
+* [X] Put data in common space
+* [Working] Adapt output tools to GFF format
 
 ### Random sample
 
