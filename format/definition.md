@@ -1,7 +1,7 @@
 
 As discussed here: https://github.com/miRTop/incubator/issues/10 we'll try to define a GFF3 format for output of small RNA pipelines
 
-authors: @lpantano @gurgese @ThomasDesvignes @mhalushka @mlhack @keilbeck @BastianFromm @ivlachos @TJU-CMC
+authors: @lpantano @gurgese @ThomasDesvignes @mhalushka @mlhack @keilbeck @BastianFromm @ivlachos @TJU-CMC @sbb25 
 
 GFF3 definition: https://github.com/The-Sequence-Ontology/Specifications/blob/master/gff3.md
 
