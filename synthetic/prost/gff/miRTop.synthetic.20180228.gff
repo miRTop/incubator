@@ -1,0 +1,25 @@
+## GFF3 adapted for miRNA sequencing data. VERSION 0.0.1
+## source-ontology: miRBasev21
+## COLDATA: miRTop.synthetic.20180228
+11	miRBasev21	isomiR	122146586	122146568	NA	.	.	Read GGTAGTAGGTTGTATAGTT; UID AwhRzwL2; Name hsa-let-7a-5p; Parent hsa-let-7a-2; Variant iso_5p:-1; Cigar NA; Expression 7; Filter PASS; Hits NA;
+11	miRBasev21	isomiR	122146586	122146567	NA	.	.	Read GGTAGTAGGTTGTATAGTTT; UID AwhRzwQ1; Name "hsa-let-7a-1,hsa-let-7a-2,hsa-let-7a-3"; Parent None; Variant iso_5p:-1,iso_3p:1; Cigar NA; Expression 20; Filter PASS; Hits NA;
+11	miRBasev21	ref_miRNA	122146586	122146566	NA	.	.	Read GGTAGTAGGTTGTATAGTTTA; UID AwhRzwQ; Name hsa-let-7a-2; Parent None; Variant NA; Cigar NA; Expression 102; Filter PASS; Hits NA;
+11	miRBasev21	ref_miRNA	122146587	122146568	NA	.	.	Read AGGTAGTAGGTTGTATAGTT; UID hJJ5WJQ1; Name hsa-let-7a-5p; Parent hsa-let-7a-2; Variant NA; Cigar NA; Expression 432; Filter PASS; Hits NA;
+11	miRBasev21	isomiR	122146587	122146569	NA	.	.	Read AGGTAGTAGGTTGTATAGT; UID hJJ5WJL2; Name hsa-let-7a-5p; Parent hsa-let-7a-2; Variant iso_3p:-1; Cigar NA; Expression 5; Filter PASS; Hits NA;
+11	miRBasev21	isomiR	122146587	122146567	NA	.	.	Read AGGTAGTAGGTTGTATAGTTT; UID hJJ5WJ%; Name "hsa-let-7a-1,hsa-let-7a-2,hsa-let-7a-3"; Parent None; Variant iso_3p:1; Cigar NA; Expression 426; Filter PASS; Hits NA;
+11	miRBasev21	isomiR	122146588	122146569	NA	.	.	Read GAGGTAGTAGGTTGTATAGT; UID 4WWABgW1; Name hsa-let-7a-5p; Parent hsa-let-7a-2; Variant iso_5p:1,iso_3p:-1; Cigar NA; Expression 3; Filter PASS; Hits NA;
+11	miRBasev21	isomiR	122146588	122146568	NA	.	.	Read GAGGTAGTAGGTTGTATAGTT; UID 4WWABg5; Name hsa-let-7a-5p; Parent hsa-let-7a-2; Variant iso_5p:1; Cigar NA; Expression 15; Filter PASS; Hits NA;
+11	miRBasev21	isomiR	122146589	122146568	NA	.	.	Read TGAGGTAGTAGGTTGTATAGTT; UID 7AwhRzwL2; Name hsa-let-7a-5p; Parent hsa-let-7a-2; Variant iso_5p:2; Cigar NA; Expression 156; Filter PASS; Hits NA;
+11	miRBasev21	isomiR	122146589	122146567	NA	.	.	Read TGAGGTAGTAGGTTGTATAGTTT; UID 7AwhRzwQ1; Name hsa-let-7a-5p; Parent hsa-let-7a-2; Variant iso_5p:2,iso_3p:1; Cigar NA; Expression 29; Filter PASS; Hits NA;
+11	miRBasev21	isomiR	122146589	122146567	NA	.	.	Read TGAGGTAGTAGGTTGTATAGTTA; UID 7AwhRzwL1; Name hsa-let-7a-5p; Parent hsa-let-7a-2; Variant iso_5p:2,iso_add:1; Cigar NA; Expression 111; Filter PASS; Hits NA;
+11	miRBasev21	isomiR	122146589	122146565	NA	.	.	Read TGAGGTAGTAGGTTGTATAGTTTTT; UID 7AwhRzw%L2; Name hsa-let-7a-5p; Parent hsa-let-7a-2; Variant iso_5p:2,iso_3p:2,iso_add:1; Cigar NA; Expression 19; Filter PASS; Hits NA;
+11	miRBasev21	ref_miRNA	122146589	122146565	NA	.	.	Read TGAGGTAGTAGGTTGTATAGTTTAT; UID 7AwhRzwQL2; Name hsa-let-7a-5p; Parent hsa-let-7a-2; Variant NA; Cigar NA; Expression 6; Filter PASS; Hits NA;
+9	miRBasev21	ref_miRNA	94175961	94175983	NA	.	.	Read ATGAGGTAGTAGGTTGTATAGTT; UID bhJJ5WJQ1; Name hsa-let-7a-5p; Parent hsa-let-7a-1; Variant NA; Cigar NA; Expression 56; Filter PASS; Hits NA;
+9	miRBasev21	isomiR	94175961	94175982	NA	.	.	Read ATGAGGTAGTAGGTTGTATAGT; UID bhJJ5WJL2; Name hsa-let-7a-1; Parent None; Variant iso_3p:-1; Cigar NA; Expression 11; Filter PASS; Hits NA;
+9	miRBasev21	isomiR	94175961	94175985	NA	.	.	Read ATGAGGTAGTAGGTTGTATAGTTTT; UID bhJJ5WJ%L2; Name hsa-let-7a-5p; Parent hsa-let-7a-1; Variant iso_3p:2; Cigar NA; Expression 13; Filter PASS; Hits NA;
+9	miRBasev21	isomiR	94175961	94175984	NA	.	.	Read ATGAGGTAGTAGGTTGTATAGTTA; UID bhJJ5WJQ; Name hsa-let-7a-5p; Parent hsa-let-7a-1; Variant iso_add:1; Cigar NA; Expression 5; Filter PASS; Hits NA;
+9	miRBasev21	isomiR	94175962	94175985	NA	.	.	Read TGAGGTAGTAGGTTGTATAGTTTT; UID 7AwhRzw%; Name hsa-let-7a-5p; Parent hsa-let-7a-1; Variant iso_5p:-1,iso_3p:2; Cigar NA; Expression 9; Filter PASS; Hits NA;
+9	miRBasev21	isomiR	94175963	94175985	NA	.	.	Read GAGGTAGTAGGTTGTATAGTTTT; UID 4WWABg5Q1; Name hsa-let-7a-1; Parent None; Variant iso_5p:-2,iso_3p:2; Cigar NA; Expression 23; Filter PASS; Hits NA;
+9	miRBasev21	isomiR	94175964	94175985	NA	.	.	Read AGGTAGTAGGTTGTATAGTTTT; UID hJJ5WJ%L2; Name hsa-let-7a-1; Parent None; Variant iso_5p:-3,iso_3p:2; Cigar NA; Expression 38; Filter PASS; Hits NA;
+9	miRBasev21	isomiR	94175965	94175985	NA	.	.	Read GGTAGTAGGTTGTATAGTTTT; UID AwhRzw%; Name hsa-let-7a-1; Parent None; Variant iso_5p:-4,iso_3p:2; Cigar NA; Expression 11; Filter PASS; Hits NA;
+9	miRBasev21	ref_miRNA	94176353	94176377	NA	.	.	Read TGAGGTAGTAGGTTGTATAGTTAAT; UID 7AwhRzwLL2; Name hsa-let-7a-5p; Parent None; Variant NA; Cigar NA; Expression 29; Filter PASS; Hits NA;
