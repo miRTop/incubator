@@ -18,7 +18,7 @@ ggplot(df %>%  filter(grepl("_sum", category)), aes(tool, counts)) +
     geom_bar(stat = "identity") + 
     facet_wrap(~category) +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) + 
-    ggsave("benchmark_sum.png")
+    ggsave("plots/benchmark_sum.png")
 
 ggplot(df %>%  filter(grepl("_count", category)), aes(tool, counts)) +
     geom_bar(stat = "identity") + 
@@ -26,7 +26,7 @@ ggplot(df %>%  filter(grepl("_count", category)), aes(tool, counts)) +
     ylim(c(0, 50)) +
     facet_wrap(~category) +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) + 
-    ggsave("benchmark_counts.png")
+    ggsave("plots/benchmark_counts.png")
 
 read_tsv("all/summary.txt") %>% select(sample, idu, tag, same_mirna, iso_3p:iso_snp_central) %>% 
     gather("iso", "value", -sample, -idu, -tag, -same_mirna) %>%
@@ -41,4 +41,4 @@ read_tsv("all/summary.txt") %>% select(sample, idu, tag, same_mirna, iso_3p:iso_
     geom_bar(position = "dodge")+
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
     facet_wrap(~iso, scales = "free_y")  + 
-    ggsave("benchmark_reference.png")
+    ggsave("plots/benchmark_reference.png")
