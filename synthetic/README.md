@@ -5,6 +5,9 @@ Therefore, numbers are indicative and help to find possible bugs in the code.
 
 Figures with the summary of the detected isomiRs are in `plot` folder.
 
+The synthetic GFF used as reference is [here](synthetic/synthetic_100.gff) and
+the [fastq](synthetic/synthetic_full_full.fq) file is available as well (adapter is TGGAATTCTCGGGTGCCAAGGAACTC).
+
 This is the comparison with the synthetic data:
 
 ![](plots/benchmark_reference.png)
@@ -25,3 +28,7 @@ To know which sequences doesn't agree with the synthetic data, use this file:
 * iso_3p, iso_snp_central_supp, iso_snp_seed, iso_5p, iso_snp_central_offset, iso_add, iso_snp, iso_snp_central: `FP` when isomiRs is not in the synthetic data, but it is in the file for this sequence. `FN` when isomiRs is in the synthetic data, but it is NOT in the file for this sequence.`TN` when isomiRs is NOT in the synthetic data, and it is NOT in the file for this sequence. `TP` when isomiRs is in the synthetic data, but it is in the file for this sequence.
 
 If you want to look for missed sequences for a specific tool, use sample to identify the tool and use `tag` to identify `M` values.
+
+### Reproducibility [TODO]
+
+Here it will go the command line used for the generation of the previous data.
