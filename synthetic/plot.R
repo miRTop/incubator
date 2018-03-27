@@ -31,12 +31,19 @@ ggplot(df %>%  filter(grepl("_count", category)), aes(tool, counts)) +
 read_tsv("all/summary.txt") %>% select(sample, idu, tag, same_mirna, iso_3p:iso_snp_central) %>% 
     gather("iso", "value", -sample, -idu, -tag, -same_mirna) %>%
     filter((tag == "D") | (tag == "E" & value == "FP") | (tag == "M" & value == "FN")) %>% 
+    mutate(tools = ifelse(grepl("sRNAbench", sample), "sRNAbench", "NA"),
+           tools = ifelse(grepl("ready", sample), "bcbio", tools),
+           tools = ifelse(grepl("fixed", sample), "miRge", tools),
+           tools = ifelse(grepl("tag", sample), "isomiRSEA", tools)) %>% 
     mutate(accuracy = value,
            accuracy = ifelse(tag == "E", "Extra", accuracy),
            accuracy = ifelse(tag == "M", "Miss", accuracy),
            accuracy = ifelse(tag == "D" & same_mirna != "Y", "CrossMap", accuracy)) %>% 
     distinct() %>% 
     filter(accuracy != "TN") %>% 
+    write_csv("../all/summary_parsed.txt")
+
+read_csv("../all/symmary_parsed.txt")
     ggplot(aes(x = sample, fill = accuracy)) + 
     geom_bar(position = "dodge")+
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +

@@ -9,6 +9,11 @@ This is the comparison with the synthetic data:
 
 ![](plots/benchmark_reference.png)
 
+A simpler comparison is to considered any isomiR at 3' as iso_3p and
+any isomiRs with snp as iso_snp_all:
+
+![](plots/benchmark_reference_simpler.png)
+
 To know which sequences doesn't agree with the synthetic data, use this file:
 `all/summary.txt`:
 
