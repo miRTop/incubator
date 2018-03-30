@@ -1,0 +1,1 @@
+mirtop compare -o all synthetic/synthetic_100.gff tools/bcbio/synthetic-mirbase-ready.gff tools/mirge/synthetic_100_full_0327_isomiRs.gff tools/sRNAbench/sRNAbench_new.gtf tools/isomirsea/gff/tagMir-all.gff
