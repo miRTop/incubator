@@ -34,7 +34,8 @@ read_tsv("all/summary.txt") %>% select(sample, idu, tag, same_mirna, iso_3p:iso_
     mutate(tools = ifelse(grepl("sRNAbench", sample), "sRNAbench", "NA"),
            tools = ifelse(grepl("ready", sample), "bcbio", tools),
            tools = ifelse(grepl("0327", sample), "miRge", tools),
-           tools = ifelse(grepl("tag", sample), "isomiRSEA", tools)) %>% 
+           tools = ifelse(grepl("tag", sample), "isomiRSEA", tools),
+           tools = ifelse(grepl("20180326", sample), "PROST!", tools)) %>% 
     mutate(accuracy = value,
            accuracy = ifelse(tag == "E", "Extra", accuracy),
            accuracy = ifelse(tag == "M", "Miss", accuracy),
