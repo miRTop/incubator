@@ -25,7 +25,19 @@ To know which sequences doesn't agree with the synthetic data, use this file:
 * seq: sequence
 * tag: `D` detected synthetic sequence in the file. `M` missed synthetic sequence in the file. `E` extra sequence not in synthetic data.
 * same_mirna: whether miRNAs in the file is the same than in the synthetic data.
-* iso_3p, iso_snp_central_supp, iso_snp_seed, iso_5p, iso_snp_central_offset, iso_add, iso_snp, iso_snp_central: `FP` when isomiRs is not in the synthetic data, but it is in the file for this sequence. `FN` when isomiRs is in the synthetic data, but it is NOT in the file for this sequence.`TN` when isomiRs is NOT in the synthetic data, and it is NOT in the file for this sequence. `TP` when isomiRs is in the synthetic data, but it is in the file for this sequence.
+* iso_3p, iso_snp_central_supp, iso_snp_seed, iso_5p, iso_snp_central_offset, iso_add, iso_snp, iso_snp_central: 
+
+`FP` when isomiRs is not in the synthetic data, but it is in the output file. The sequence is detected by the tool, but the tool doesn't report it like an isomiR.
+
+`FN` when isomiRs is in the synthetic data, but it is NOT in the output file. The sequence is detected by the tool and reports an isomiRs but is not described like that in the synthetic data.
+
+`TN` when isomiRs is NOT in the synthetic data, and it is NOT in the output file. Sequence is detected by the tool and reported correctly that there is NOT an isomiR of that type.
+
+`TP` when isomiRs is in the synthetic data, but it is in the output file. Sequence is detected by the tool and reported correctly that there is an isomiR of that type.
+
+`Miss` when the sequence is NOT detected by the tool.
+
+`CrossMap` when the sequence is detected by the tool but another miRNA is assigned.
 
 If you want to look for missed sequences for a specific tool, use sample to identify the tool and use `tag` to identify `M` values.
 
