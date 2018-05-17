@@ -32,7 +32,7 @@ ggplot(bcbio_stats %>% filter(grepl("_sum", category),
     geom_bar(stat = "identity", position = "dodge") +
     facet_wrap(~category, scales = "free_y", nrow=4) +
     ggtitle("bcbio - TrueSeq") +
-    ggsave("figures/stats/bcbio_sum.png")
+    ggsave("figures/stats/bcbio_trueseq_sum.png")
 ggplot(bcbio_stats %>% filter(grepl("_sum", category),
                               lib_method_simple == "NEBNext"),
        aes(x = lab, y = counts, fill = as.factor(replicate))) +
