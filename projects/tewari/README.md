@@ -30,15 +30,15 @@ Questions to answer here are:
 ###  Number of differents isomiRs for each lab for protocol TrueSeq:
 
 ![bcbio_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/bcbio_truseq_count.png)
-![mirge_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/mirge_trueseq_count.png)
+![mirge_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/miRge_trueseq_count.png)
 ![isomirsea_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/isomirsea_trueseq_count.png)
-![srnabench_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/srnabench_trueseq_count.png)
+![srnabench_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/sRNAbench_trueseq_count.png)
 
 ## Number of differents isomiRs for each lab for protocol NEBNext:
 
 ![bcbio_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/bcbio_nebnext_count.png)
-![mirge_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/mirge_nebnext_count.png)
+![mirge_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/miRge_nebnext_count.png)
 ![isomirsea_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/isomirsea_nebnext_count.png)
-![srnabench_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/srnabench_nebnext_count.png)
+![srnabench_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/sRNAbench_nebnext_count.png)
 
 
