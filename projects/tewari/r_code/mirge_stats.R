@@ -1,4 +1,11 @@
 setwd(here::here())
+library(tidyverse)
+library(ggplot2)
+theme_set(
+    theme_light(base_size = 9))
+theme_update(
+    legend.justification = "center",
+    legend.position = "bottom")
 
 meta_pilot = read_csv("meta_pilot.csv")
 
@@ -11,33 +18,4 @@ mirge_stats = read_csv("tools/mirge/stats/mirtop_stats.txt", skip = 1) %>%
                by = c("fn" = "fixed_name")) %>% 
     mutate(sample = fn)
 
-library(ggplot2) 
-ggplot(mirge_stats %>% filter(grepl("_count", category),
-                              lib_method_simple == "TruSeq"),
-       aes(x = lab, y = counts, fill = as.factor(replicate))) +
-    geom_bar(stat = "identity", position = "dodge") +
-    facet_wrap(~category, scales = "free_y", nrow=4) +
-    ggtitle("miRge - TrueSeq") +
-    ggsave("figures/stats/mirge_trueseq_count.png")
-ggplot(mirge_stats %>% filter(grepl("_count", category),
-                              lib_method_simple == "NEBNext"),
-       aes(x = lab, y = counts, fill = as.factor(replicate))) +
-    geom_bar(stat = "identity", position = "dodge") +
-    facet_wrap(~category, scales = "free_y", nrow=4) +
-    ggtitle("miRge - NEBNext") +
-    ggsave("figures/stats/mirge_nebnext_count.png")
-
-ggplot(mirge_stats %>% filter(grepl("_sum", category),
-                              lib_method_simple == "TruSeq"),
-       aes(x = lab, y = counts, fill = as.factor(replicate))) +
-    geom_bar(stat = "identity", position = "dodge") +
-    facet_wrap(~category, scales = "free_y", nrow=4) +
-    ggtitle("miRge - TrueSeq") +
-    ggsave("figures/stats/mirge_trueseq_sum.png")
-ggplot(mirge_stats %>% filter(grepl("_sum", category),
-                              lib_method_simple == "NEBNext"),
-       aes(x = lab, y = counts, fill = as.factor(replicate))) +
-    geom_bar(stat = "identity", position = "dodge") +
-    facet_wrap(~category, scales = "free_y", nrow=4) +
-    ggtitle("miRge - NEBNext") +
-    ggsave("figures/stats/mirge_nebnext_sum.png")
+save_stats(mirge_stats, "miRge")

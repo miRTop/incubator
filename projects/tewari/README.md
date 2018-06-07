@@ -1,5 +1,14 @@
 This folder contains the results of the re-analysis for tewari data.
 
+# Limitations
+
+* miRge did the trimming by itself
+* bcbio did the trimming by itself and shared the trimmed files to be used by isomiRSEA and sRNAbench
+* bcbio has a internal cutoff of a minimum of 2 counts to be annotated
+* isomiRSEA considers only iso_5p:+/-1
+* sRNAbench labels some sequences as `mv` for isomiRs, these are lost for now in the conversion to GFF3 format.
+
+
 # pilot samples
 
 To start the comparison, we decided to reduce the number of samples to analyze to give us an idea of the difference between labs and tools.
@@ -17,23 +26,19 @@ Questions to answer here are:
 
 ## For each tool, similarity between replicates of each lab/protocol
 
-### bcbio
 
-* Number of differents isomiRs for each lab for protocol TrueSeq:
+###  Number of differents isomiRs for each lab for protocol TrueSeq:
 
 ![bcbio_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/bcbio_truseq_count.png)
+![mirge_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/mirge_trueseq_count.png)
+![isomirsea_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/isomirsea_trueseq_count.png)
+![srnabench_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/srnabench_trueseq_count.png)
 
-* Number of differents isomiRs for each lab for protocol NEBNext:
+## Number of differents isomiRs for each lab for protocol NEBNext:
 
 ![bcbio_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/bcbio_nebnext_count.png)
-
-### miRge
-
-* Number of differents isomiRs for each lab for protocol TrueSeq:
-
-![mirge_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/mirge_trueseq_count.png)
-
-* Number of differents isomiRs for each lab for protocol NEBNext:
-
 ![mirge_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/mirge_nebnext_count.png)
+![isomirsea_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/isomirsea_nebnext_count.png)
+![srnabench_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/srnabench_nebnext_count.png)
+
 

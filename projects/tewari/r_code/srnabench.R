@@ -9,9 +9,8 @@ theme_update(
 
 meta_pilot = read_csv("meta_pilot.csv")
 
-stats = read_csv("tools/bcbio/stats/mirtop_stats.txt", skip = 1) %>% 
-    mutate(sample=gsub("-mirbase-ready", "", sample)) %>% 
+stats = read_csv("tools/srnabench/mirtop/mirtop_stats.txt", comment = "#") %>% 
     inner_join(meta_pilot,
                by = c("sample" = "fixed_name"))
 
-save_stats(stats, "bcbio")
+save_stats(stats, "sRNAbench")
