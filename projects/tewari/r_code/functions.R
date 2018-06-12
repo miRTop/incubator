@@ -59,8 +59,9 @@ plot_summarize_isomir = function(df) {
         scale_size_discrete("filter:min_counts", range = c(1, 2.5)) +
         scale_shape_discrete("laboratory") +
         facet_grid(lib_method_simple~isomir_type) + 
-        xlab("% of sequences detected compared to single sample") +
-        ylab("% of counts detected compared to single sample")
+        ylim(0.5, 1) +
+        xlab("% of sequences detected compared to single replicate") +
+        ylab("% of counts detected compared to single replicate")
 }
 
 expression_isomirs_by_lab_protocol_isomir = . %>% 
@@ -101,6 +102,6 @@ plot_isoadd_position_by_protocol_by_lab = function(df, iso = NULL){
         scale_color_brewer("common:n_replicates", palette = "Set2") +
         scale_shape_discrete("laboratory") +
         facet_grid(lib_method_simple~size) + 
-        xlab("% of sequences detected compared to single sample") +
-        ylab("% of counts detected compared to single sample")
+        xlab("% of sequences detected compared to single replicate") +
+        ylab("% of counts detected compared to single replicate")
 }

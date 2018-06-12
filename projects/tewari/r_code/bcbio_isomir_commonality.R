@@ -24,20 +24,32 @@ pilot = cbind(complete[, 1], counts) %>%
     left_join(meta_pilot, by = c("sample" = "fixed_name"))
 
 
+dds$samples %>% rownames_to_column("sample") %>% 
+    mutate(sample = gsub("-mirbase-ready", "", sample)) %>% 
+    filter(sample  %in%  meta_pilot[["fixed_name"]]) %>% 
+    left_join(meta_pilot, by = c("sample" = "fixed_name")) %>% 
+    ggplot(aes(x = replicate, y = lib.size)) +
+    geom_bar(stat = "identity") +
+    facet_grid(lab~lib_method_simple) +
+    ggsave("figures/replicates/bcbio_libsize.png", width = 7, height = 9)
+
 lapply(2:3, function(x){
-    filter(pilot, value >= x) %>% summarize_isomir %>% 
+    filter(pilot, value >= x) %>%
+        summarize_isomir %>% 
         mutate(min_counts = x)
-}) %>% bind_rows() %>% plot_summarize_isomir +
-    ggsave("figures/replicates/bcbio.pdf", width = 9, height = 9)
+}) %>% bind_rows() %>%
+    plot_summarize_isomir +
+    ggsave("figures/replicates/bcbio.png", width = 9, height = 9)
 
 
 pilot %>% expression_isomirs_by_lab_protocol_isomir %>%
     ggplot(aes(x=lab,y=counts,fill=as.factor(reps))) +
     geom_boxplot() + scale_y_log10() +
     facet_grid(lib_method_simple~isomir_type) + 
-    ggsave("figures/replicates/bcbio_counts_per_isomir_type.pdf",
+    ggsave("figures/replicates/bcbio_counts_per_isomir_type.png",
            width = 9, height = 9)
 
+### test #######################################################################
 
 pilot %>% filter(!is.na(lib_method_simple), lab != "Lab1",
                  Variant == "Reference", value > 0) %>% 
