@@ -73,14 +73,11 @@ pilot %>% filter(!is.na(lib_method_simple), lab != "Lab1",
     ylab("% of counts detected compared to a single replicated;")
 
 
-pilot %>% plot_isoadd_position_by_protocol_by_lab(., "iso_add") +
-    ggsave("figures/replicates/bcbio_isoadd_by_protocol_by_lab.pdf")
+pilot %>% plot_isoadd_position_by_protocol_by_lab(., "iso_add") 
 
-pilot %>% plot_isoadd_position_by_protocol_by_lab(., "iso_5p") +
-    ggsave("figures/replicates/bcbio_iso5p_by_protocol_by_lab.pdf")
+pilot %>% plot_isoadd_position_by_protocol_by_lab(., "iso_5p") 
 
-pilot %>% plot_isoadd_position_by_protocol_by_lab(., "iso_3p") +
-    ggsave("figures/replicates/bcbio_iso3p_by_protocol_by_lab.pdf")
+pilot %>% plot_isoadd_position_by_protocol_by_lab(., "iso_3p")
 
 iso = "iso_5p"
 filter(pilot, !is.na(lib_method_simple), lab != "Lab1") %>% 

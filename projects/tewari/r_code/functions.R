@@ -32,9 +32,11 @@ save_stats = function(stats, tool){
     
 }
 
+add_col = "iso_add_nt"
+snp_col = "iso_snp_nt"
 summarize_isomir = . %>% filter(!is.na(lib_method_simple), lab != "Lab1") %>% 
-    filter(iso_5p != 0 | iso_3p != 0 | iso_add_nt != 0 | iso_snp_nt != 0) %>% 
-    select(iso_5p, iso_3p, iso_add_nt, iso_snp_nt,
+    filter(iso_5p != 0 | iso_3p != 0 | !!sym(add_col) != 0 | !!sym(snp_col) != 0) %>% 
+    select(iso_5p, iso_3p, !!sym(add_col), !!sym(snp_col),
            miRNA, replicate, lab, value, replicate, lib_method_simple) %>% 
     gather(isomir_type, size,
            -value, -miRNA, -lab, -replicate, -lib_method_simple ) %>%
@@ -48,26 +50,38 @@ summarize_isomir = . %>% filter(!is.na(lib_method_simple), lab != "Lab1") %>%
     group_by(lab, lib_method_simple, isomir_type) %>%
     arrange(isomir_type, lib_method_simple, lab, desc(reps)) %>%
     mutate(n_isomirs_cum = cumsum(n_isomirs)/sum(n_isomirs),
-           counts_cum = cumsum(counts)/sum(counts))
+           counts_cum = cumsum(counts)/sum(counts),
+           n_isomirs_sum = sum(n_isomirs),
+           counts_sum = sum(counts))
 
 plot_summarize_isomir = function(df) {
-    ggplot(df, aes(color=as.factor(reps), x=n_isomirs_cum, y=counts_cum,
-               shape=as.factor(lab),
-               size=as.factor(min_counts))) +
-        geom_point() +
-        scale_color_brewer("common:n_replicates", palette = "Set2") +
-        scale_size_discrete("filter:min_counts", range = c(1, 2.5)) +
-        scale_shape_discrete("laboratory") +
-        facet_grid(lib_method_simple~isomir_type) + 
-        ylim(0.5, 1) +
-        xlab("% of sequences detected compared to single replicate") +
-        ylab("% of counts detected compared to single replicate")
+    plot_grid(
+        ggplot(filter(df, reps == 1), aes(y = n_isomirs_sum, x = counts_sum,
+                                          shape = as.factor(min_counts),
+                                          color=lab)) +
+            geom_point() +
+            scale_color_brewer("", palette = "Set2") +
+            scale_shape_discrete("filter:min_counts") +
+            facet_grid(lib_method_simple~isomir_type),
+        ggplot(df, aes(color=as.factor(reps), x=n_isomirs_cum, y=counts_cum,
+                       shape=as.factor(lab),
+                       size=as.factor(min_counts))) +
+            geom_point() +
+            scale_color_brewer("common:n_replicates", palette = "Set2") +
+            scale_size_discrete("filter:min_counts", range = c(1, 2.5)) +
+            scale_shape_discrete("laboratory") +
+            facet_grid(lib_method_simple~isomir_type) + 
+            ylim(0.5, 1) +
+            xlab("% of sequences detected compared to single replicate") +
+            ylab("% of counts detected compared to single replicate"),
+        nrow = 2
+    )
 }
 
 expression_isomirs_by_lab_protocol_isomir = . %>% 
     filter(!is.na(lib_method_simple), lab != "Lab1") %>% 
-    filter(iso_5p != 0 | iso_3p != 0 | iso_add_nt != 0 | iso_snp_nt != 0) %>% 
-    select(iso_5p, iso_3p, iso_add_nt, iso_snp_nt,
+    filter(iso_5p != 0 | iso_3p != 0 | !!sym(add_col) != 0 | !!sym(snp_col) != 0) %>% 
+    select(iso_5p, iso_3p, !!sym(add_col), !!sym(snp_col),
            miRNA, replicate, lab, value, replicate, lib_method_simple) %>% 
     gather(isomir_type, size,
            -value, -miRNA, -lab, -replicate, -lib_method_simple ) %>% 
