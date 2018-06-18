@@ -24,7 +24,7 @@ Questions to answer here are:
 * Inside the same tool, how replicates from each lab but different protocols reproduce by isomiR type
 * Inisde each lab and protocol, how tools reproduce each other by isomiR type
 
-## For each tool, similarity between replicates of each lab/protocol
+## For each tool, general stats of each lab/protocol
 
 
 ###  Number of differents isomiRs for each lab for protocol TrueSeq:
@@ -34,11 +34,17 @@ Questions to answer here are:
 ![isomirsea_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/isomiR-SEA_truseq_count.png)
 ![srnabench_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/sRNAbench_truseq_count.png)
 
-## Number of differents isomiRs for each lab for protocol NEBNext:
+### Number of differents isomiRs for each lab for protocol NEBNext:
 
 ![bcbio_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/bcbio_nebnext_count.png)
 ![mirge_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/miRge_nebnext_count.png)
 ![isomirsea_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/isomiR-SEA_nebnext_count.png)
 ![srnabench_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/sRNAbench_nebnext_count.png)
 
+## For each tool, commonality for replicates inside each lab and protocol
+
+![bcbio_commonality](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/replicates/bcbio.png)
+![mirge_commonality](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/replicates/mirge.png)
+![isomirsea_commonality](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/replicates/isomirsea.png)
+![srnabench_commonality](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/replicates/srnabench.png)
 
