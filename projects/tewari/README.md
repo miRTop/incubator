@@ -43,8 +43,19 @@ Questions to answer here are:
 
 ## For each tool, commonality for replicates inside each lab and protocol
 
+### bcbio
+
 ![bcbio_commonality](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/replicates/bcbio.png)
+
+### miRge
+
 ![mirge_commonality](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/replicates/mirge.png)
+
+### isomiR-SEA
+
 ![isomirsea_commonality](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/replicates/isomirsea.png)
+
+### sRNAbench
+
 ![srnabench_commonality](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/replicates/srnabench.png)
 
