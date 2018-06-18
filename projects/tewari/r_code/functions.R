@@ -1,3 +1,10 @@
+library(tidyverse)
+
+filter_labs = . %>% 
+    filter(!is.na(lib_method_simple)) %>%
+    filter(!(lab == "Lab1" & lib_method_simple == "TrueSeq")) %>% 
+    filter(!(lab == "Lab4" & lib_method_simple == "NEBNext"))
+
 plot_stats = function(df){
     ggplot(df, aes(x = lab, y = counts, fill = as.factor(replicate))) +
         geom_bar(stat = "identity", position = "dodge") +
@@ -34,7 +41,7 @@ save_stats = function(stats, tool){
 
 add_col = "iso_add_nt"
 snp_col = "iso_snp_nt"
-summarize_isomir = . %>% filter(!is.na(lib_method_simple), lab != "Lab1") %>% 
+summarize_isomir = . %>% filter_labs %>% 
     filter(iso_5p != 0 | iso_3p != 0 | !!sym(add_col) != 0 | !!sym(snp_col) != 0) %>% 
     select(iso_5p, iso_3p, !!sym(add_col), !!sym(snp_col),
            miRNA, replicate, lab, value, replicate, lib_method_simple) %>% 
@@ -57,18 +64,20 @@ summarize_isomir = . %>% filter(!is.na(lib_method_simple), lab != "Lab1") %>%
 plot_summarize_isomir = function(df) {
     plot_grid(
         ggplot(filter(df, reps == 1), aes(y = n_isomirs_sum, x = counts_sum,
-                                          shape = as.factor(min_counts),
-                                          color=lab)) +
+                                          shape = as.factor(lab),
+                                          size = min_counts)) +
             geom_point() +
-            scale_color_brewer("", palette = "Set2") +
+            scale_size_continuous("filter:min_counts", range = c(1,2),
+                                  breaks = c(0, 1, 2, 3, 4)) +
             scale_shape_discrete("filter:min_counts") +
             facet_grid(lib_method_simple~isomir_type),
         ggplot(df, aes(color=as.factor(reps), x=n_isomirs_cum, y=counts_cum,
                        shape=as.factor(lab),
-                       size=as.factor(min_counts))) +
+                       size=min_counts)) +
             geom_point() +
             scale_color_brewer("common:n_replicates", palette = "Set2") +
-            scale_size_discrete("filter:min_counts", range = c(1, 2.5)) +
+            scale_size_continuous("filter:min_counts", range = c(1,2),
+                                  breaks = c(0, 1, 2, 3, 4)) +
             scale_shape_discrete("laboratory") +
             facet_grid(lib_method_simple~isomir_type) + 
             ylim(0.5, 1) +
@@ -79,7 +88,7 @@ plot_summarize_isomir = function(df) {
 }
 
 expression_isomirs_by_lab_protocol_isomir = . %>% 
-    filter(!is.na(lib_method_simple), lab != "Lab1") %>% 
+    filter_labs %>% 
     filter(iso_5p != 0 | iso_3p != 0 | !!sym(add_col) != 0 | !!sym(snp_col) != 0) %>% 
     select(iso_5p, iso_3p, !!sym(add_col), !!sym(snp_col),
            miRNA, replicate, lab, value, replicate, lib_method_simple) %>% 
@@ -93,7 +102,7 @@ expression_isomirs_by_lab_protocol_isomir = . %>%
 
 
 plot_isoadd_position_by_protocol_by_lab = function(df, iso = NULL){
-    filter(df, !is.na(lib_method_simple), lab != "Lab1") %>% 
+    df %>% filter_labs %>% 
         filter(!!sym(iso) != 0) %>% 
         select(!!sym(iso),
                miRNA, replicate, lab, value, replicate, lib_method_simple) %>% 
