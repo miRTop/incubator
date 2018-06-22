@@ -26,20 +26,17 @@ Questions to answer here are:
 
 ## For each tool, general stats of each lab/protocol
 
+Look to individual stats figures at [stats](md/stats.md)
 
-###  Number of differents isomiRs for each lab for protocol TrueSeq:
 
-![bcbio_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/bcbio_truseq_count.png)
-![mirge_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/miRge_truseq_count.png)
-![isomirsea_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/isomiR-SEA_truseq_count.png)
-![srnabench_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/sRNAbench_truseq_count.png)
+###  Number of miRNA reads
 
-### Number of differents isomiRs for each lab for protocol NEBNext:
+![summary_sum](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/summary_sum.png)
 
-![bcbio_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/bcbio_nebnext_count.png)
-![mirge_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/miRge_nebnext_count.png)
-![isomirsea_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/isomiR-SEA_nebnext_count.png)
-![srnabench_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/sRNAbench_nebnext_count.png)
+### Number of unique sequences
+
+![summary_counts](https://github.com/miRTop/incubator/raw/master/projects/tewari/figures/stats/summary_counts.png)
+
 
 ## For each tool, commonality for replicates inside each lab and protocol
 
