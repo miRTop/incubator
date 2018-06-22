@@ -15,19 +15,18 @@ plot_stats = function(df){
 save_stats = function(stats, tool){
 
     stats %>% filter(grepl("_count", category),
-                     lib_method_simple == "TruSeq") %>% 
+                     lib_method_simple == "TrueSeq") %>% 
         plot_stats() +
         ggtitle(paste0(tool, " - TrueSeq")) +
-        ggsave(paste0("figures/stats/", tool, "_truseq_count.png"))
+        ggsave(paste0("figures/stats/", tool, "_trueseq_count.png"))
     stats %>% filter(grepl("_count", category),
                      lib_method_simple == "NEBNext") %>% 
         plot_stats() +
         ggtitle(paste0(tool, " - NEBNext")) +
         ggsave(paste0("figures/stats/", tool, "_nebnext_count.png"))
     
-    
     stats %>% filter(grepl("_sum", category),
-                     lib_method_simple == "TruSeq") %>% 
+                     lib_method_simple == "TrueSeq") %>% 
         plot_stats() +
         ggtitle(paste0(tool, " - TrueSeq")) +
         ggsave(paste0("figures/stats/", tool, "_trueseq_sum.png"))
