@@ -62,15 +62,17 @@ summarize_isomir = . %>% filter_labs %>%
 
 plot_summarize_isomir = function(df) {
     plot_grid(
-        ggplot(filter(df, reps == 1), aes(y = n_isomirs_sum, x = counts_sum,
+        ggplot(filter(df, reps == 1), aes(x = n_isomirs_sum, y = counts_sum,
                                           shape = as.factor(lab),
                                           size = min_counts)) +
             geom_point() +
             scale_size_continuous("filter:min_counts", range = c(1,2),
                                   breaks = c(0, 1, 2, 3, 4)) +
             scale_shape_discrete("filter:min_counts") +
+            xlab("number of unique isomiRs") +
+            ylab("counts of isomiRs") +
             facet_grid(lib_method_simple~isomir_type),
-        ggplot(df, aes(color=as.factor(reps), x=n_isomirs_cum, y=counts_cum,
+        ggplot(df, aes(color=as.factor(reps), x = n_isomirs_cum, y = counts_cum,
                        shape=as.factor(lab),
                        size=min_counts)) +
             geom_point() +
@@ -82,7 +84,8 @@ plot_summarize_isomir = function(df) {
             ylim(0.5, 1) +
             xlab("% of sequences detected compared to single replicate") +
             ylab("% of counts detected compared to single replicate"),
-        nrow = 2
+        nrow = 2,
+        align = "v"
     )
 }
 

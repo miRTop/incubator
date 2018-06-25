@@ -4,7 +4,7 @@ library(ggplot2)
 library(cowplot)
 library(edgeR)
 source("r_code/functions.R")
-theme_set(theme_bw(base_size = 9))
+theme_set(theme_bw(base_size = 11))
 
 meta_pilot = read_csv("meta_pilot.csv")
 
