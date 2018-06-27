@@ -1,5 +1,9 @@
 This folder contains the results of the re-analysis for tewari data.
 
+# Communication
+
+* BOSC2018: https://f1000research.com/slides/7-953
+
 # Limitations
 
 * miRge did the trimming by itself
