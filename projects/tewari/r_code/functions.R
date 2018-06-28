@@ -69,10 +69,13 @@ plot_summarize_isomir = function(df) {
             scale_size_continuous("filter:min_counts", range = c(1,2),
                                   breaks = c(0, 1, 2, 3, 4)) +
             scale_shape_discrete("filter:min_counts") +
+            theme(axis.text.x = element_text(angle = 45, hjust = 0.5, vjust = 0.5)) +
             xlab("number of unique isomiRs") +
             ylab("counts of isomiRs") +
             facet_grid(lib_method_simple~isomir_type),
-        ggplot(df, aes(color=as.factor(reps), x = n_isomirs_cum, y = counts_cum,
+        ggplot(df, aes(color=as.factor(reps),
+                       x = n_isomirs_cum*100,
+                       y = counts_cum*100,
                        shape=as.factor(lab),
                        size=min_counts)) +
             geom_point() +
@@ -81,7 +84,7 @@ plot_summarize_isomir = function(df) {
                                   breaks = c(0, 1, 2, 3, 4)) +
             scale_shape_discrete("laboratory") +
             facet_grid(lib_method_simple~isomir_type) + 
-            ylim(0.5, 1) +
+            ylim(50, 100) +
             xlab("% of sequences detected compared to single replicate") +
             ylab("% of counts detected compared to single replicate"),
         nrow = 2,

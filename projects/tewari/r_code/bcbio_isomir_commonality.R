@@ -4,7 +4,7 @@ library(ggplot2)
 library(cowplot)
 library(edgeR)
 source("r_code/functions.R")
-theme_set(theme_bw(base_size = 11))
+theme_set(theme_bw(base_size = 14))
 
 meta_pilot = read_csv("meta_pilot.csv")
 
@@ -39,7 +39,7 @@ lapply(2:3, function(x){
         mutate(min_counts = x)
 }) %>% bind_rows() %>%
     plot_summarize_isomir +
-    ggsave("figures/replicates/bcbio.png", width = 9, height = 9)
+    ggsave("figures/replicates/bcbio.png", width = 11, height = 9)
 
 
 pilot %>% expression_isomirs_by_lab_protocol_isomir %>%
