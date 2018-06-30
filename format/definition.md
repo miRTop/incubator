@@ -10,7 +10,7 @@ GFF3 definition: https://github.com/The-Sequence-Ontology/Specifications/blob/ma
 We'll focus on miRNA first, then export to other databases
 
 * define each column to be adapted to miRNA annotation
-* define column 9 to support informatino like count data for samples, isomiRs labeling etc
+* define column 9 to support information like count data for samples, isomiRs labeling etc
 
 Note: Keep in mind this is for the output of a pipeline, so we know there will be bias toward methodology, but the idea is to put enough information to be able to re-analyze or filter sequences using information described here. As well, it would be a proxy for downstream analysis or packages.
 
@@ -21,14 +21,14 @@ Note: Keep in mind this is for the output of a pipeline, so we know there will b
 Please add description for each columnd/attribute
 
 * header:
-  * database: `##source-ontology LINK TO DATABASE` include version and link
-  * commands used to generate the file. At least information about adapter removal, filtering, aligner, mirna tool. All of them starting like: `## CMD: `. Can be multiple lines starting with this tag.
+  * database: `##source-ontology LINK TO DATABASE` include version and link (mandatory)
+  * commands used to generate the file. At least information about adapter removal, filtering, aligner, mirna tool. All of them starting like: `## CMD: `. Can be multiple lines starting with this tag. (optional)
   * genome/database version used (maybe try to get from BAM file if GFF3 generated from it): `## REFERENCE:` 
-  * sample names used in attribute:Expression: `## COLDATA:` separated by spaces
+  * sample names used in attribute:Expression: `## COLDATA:` separated by commas (mandatory)
   * small RNA GFF version `## VERSION: 0.9`
   * Filter tags meaning: See Filter attribute below. Different filter tags should be separated by `,` character. Example: `## FILTER: ` and example would be `## FILTER: PASS(is ok), REJECT(false positive), REJECT lowcount(rejected due to low count in data)`. 
 * column1: seqID: precursor name
-* column2: source: databases (lower case) used for the annotation (miRBase, mirDBgene,tRNA...etc): https://github.com/miRTop/incubator/issues/13. With the version number after `_` character: `mirbase_21`
+* column2: source: databases (lower case) used for the annotation (miRBase, mirgeneDB,tRNA...etc): https://github.com/miRTop/incubator/issues/13. With the version number after `_` character: `mirbase_21`
 * column3: type: `ref_miRNA, isomiR`: https://github.com/miRTop/incubator/issues/13  (SO:0002166 ref_miRNA and SO:0002167 isomiR)
 * column4/5: start/end: precursor start/end as indicated by alignment tool
 * column6: score (Optional): It can be the mapping score or any other score the tool wants to assign to the sequence.
