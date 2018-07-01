@@ -1,4 +1,8 @@
 
+
+[![Project Status: Moved to http://example.com – The project has been moved to a new location, and the version at that location should be considered authoritative.](http://www.repostatus.org/badges/latest/moved.svg)](http://www.repostatus.org/#moved) to [https://github.com/miRTop/mirGFF3](https://github.com/miRTop/mirGFF3)
+
+
 As discussed here: https://github.com/miRTop/incubator/issues/10 we'll try to define a GFF3 format for output of small RNA pipelines
 
 authors: @lpantano @gurgese @ThomasDesvignes @mhalushka @mlhack @keilbeck @BastianFromm @ivlachos @TJU-CMC @sbb25 
