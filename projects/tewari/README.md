@@ -4,6 +4,15 @@ This folder contains the results of the re-analysis for tewari data.
 
 * BOSC2018: https://f1000research.com/slides/7-953
 
+# Goals
+
+* How to filter False isomirs and True isomirs
+
+Ideally:
+
+* Machine learning to predict the real isomirs and remove the ones due to technical errors
+
+
 # Limitations
 
 * miRge did the trimming by itself
