@@ -21,6 +21,12 @@ Ideally:
 * isomiRSEA considers only iso_5p:+/-1
 * sRNAbench labels some sequences as `mv` for isomiRs, these are lost for now in the conversion to GFF3 format.
 
+# reproducibility
+
+The conversion to GFF3 is done by the script:  `scripts/pre_cmd.sh`. This will generate the `expression_cpunts.tsv.gz` files for each tool showed here and script in `R` are the responsible to reproduce the figures:
+
+* `r_code/run_isomir_stats.R` generates the plot to show the amount of reads and sequences for all the samples
+* `r_code/run_isomir_commonality.R` generates the plot to show the commonality among replicates for each lab and protocol
 
 # pilot samples
 
