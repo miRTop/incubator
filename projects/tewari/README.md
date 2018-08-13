@@ -36,6 +36,13 @@ The samples selected are: https://github.com/miRTop/incubator/blob/master/projec
 
 These include 4 labs, and 2 protocols, 4 replicates per lab and protocol.
 
+# Interesting links
+
+* https://www.ncbi.nlm.nih.gov/pubmed/22647250 (Reducing ligation bias of small RNAs in libraries for next generation sequencing)
+* http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126049 (Bias in Ligation-Based Small RNA Sequencing Library)
+* https://projecteuclid.org/download/pdfview_1/euclid.aoas/1318514284 (IDR paper)
+
+# Results
 
 Questions to answer here are:
 
