@@ -21,7 +21,16 @@ Ideally:
 * isomiRSEA considers only iso_5p:+/-1
 * sRNAbench labels some sequences as `mv` for isomiRs, these are lost for now in the conversion to GFF3 format.
 
-# reproducibility
+
+# Methods
+
+* Counts were normalized with edgeR and only counts > 1 were kept for each library
+* Find a method to collpase replicates for each lab
+ * IDR was studied but if was difficult for us to find the best parameters. See how results varies when two main paraters change: https://github.com/lpantano/mypubs/blob/master/code-blog/idr/good_param_testing.png
+ * We played with the dispersion values for DESeq2 but nothing outstanding came to us to decide what isomiRs where well replicated or not.
+ * For now, we decided using isomiRs detected in the 4 replicates in each lab to plot reproducibility among labs using the same protocol.
+
+# Analysis reproducibility
 
 The conversion to GFF3 is done by the script:  `scripts/pre_cmd.sh`. This will generate the `expression_cpunts.tsv.gz` files for each tool showed here and script in `R` are the responsible to reproduce the figures:
 
