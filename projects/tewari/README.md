@@ -25,7 +25,7 @@ Ideally:
 # Methods
 
 * Counts were normalized with edgeR and only counts > 1 were kept for each library
-* Find a method to collpase replicates for each lab
+* Logic used to select a method to collapse replicates for each lab
  * IDR was studied but if was difficult for us to find the best parameters. See how results varies when two main paraters change: https://github.com/lpantano/mypubs/blob/master/code-blog/idr/good_param_testing.png
  * We played with the dispersion values for DESeq2 but nothing outstanding came to us to decide what isomiRs where well replicated or not.
  * For now, we decided using isomiRs detected in the 4 replicates in each lab to plot reproducibility among labs using the same protocol.
