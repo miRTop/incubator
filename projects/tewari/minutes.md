@@ -11,6 +11,21 @@ We presented the data and results until now and discussed the following points:
 * Repeat plots separating between low/medium/high
 * kmer analysis to explain difference among labs
 
+### Papers related to reproducibility and small RNA bias by Ioannis
+
+The metric is called IDR (irreproducible discovery rate) and you can find it here:
+
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/
+ 
+http://cran.r-project.org/web/packages/idr/index.htm
+
+These are the papers for the bias:
+ 
+http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126049
+ 
+https://www.ncbi.nlm.nih.gov/pubmed/22647250
+ 
+
 ### Questions for next meeting
 
 * what to do with isomiRs that map equally to other mature miRNAs
