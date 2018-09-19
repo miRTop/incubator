@@ -1,24 +1,6 @@
 project road map: https://github.com/miRTop/incubator/projects/2
 
-## 08-30-2018
-
-People: Lorena, Aarun, Ioannis
-
-* We presented the variation in the output of IDR package when changing two of the main paramters. See [Methods](https://github.com/miRTop/incubator/tree/master/projects/tewari#methods)
-* We presented an example of figure when visualizing the [commonality among replicates and labs](https://github.com/miRTop/incubator/blob/master/projects/tewari/figures/labs/bcbio.png)
-
-### The discussion was focused on finding a method to flag sequences as reproducible or not:
-
-* One strategy was to let Ioannis to contact IDR authors to ask for advice about how to adapt the code to our question
-* Another strategy was to let Lorena find some statistician to join the collaboration to help in this particular step
-
-### Ready to do points:
-
-* Lorena has to send FASTA file of all sequences to Ioannis to get the features that will be used for the machine learning analysis once we can classify sequence into reproducible or not.
-* Aarun will update plots and divided by low/medium/high expression
-
-
-## 08-09-2018
+## 08-090-2018
 
 We presented the data and results until now and discussed the following points:
 
@@ -28,21 +10,6 @@ We presented the data and results until now and discussed the following points:
 * measure the edit distance of the isomirs to all the mirnas in the database to spot problematic isomirs that we should remove
 * Repeat plots separating between low/medium/high
 * kmer analysis to explain difference among labs
-
-### Papers related to reproducibility and small RNA bias by Ioannis
-
-The metric is called IDR (irreproducible discovery rate) and you can find it here:
-
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/
- 
-http://cran.r-project.org/web/packages/idr/index.htm
-
-These are the papers for the bias:
- 
-http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126049
- 
-https://www.ncbi.nlm.nih.gov/pubmed/22647250
- 
 
 ### Questions for next meeting
 

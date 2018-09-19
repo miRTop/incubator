@@ -3,6 +3,7 @@ library(tidyverse)
 library(ggplot2)
 library(cowplot)
 library(edgeR)
+library(matrixStats)
 source("r_code/functions.R")
 theme_set(theme_bw(base_size = 9))
 

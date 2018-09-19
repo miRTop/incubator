@@ -60,62 +60,15 @@ summarize_isomir = . %>% filter_labs %>%
            n_isomirs_sum = sum(n_isomirs),
            counts_sum = sum(counts))
 
-summarize_isomirs_by_lab = . %>% filter_labs %>% 
-    filter(iso_5p != 0 | iso_3p != 0 | !!sym(add_col) != 0 | !!sym(snp_col) != 0) %>% 
-    select(iso_5p, iso_3p, !!sym(add_col), !!sym(snp_col),
-           miRNA, replicate, lab, value, replicate, lib_method_simple) %>% 
-    gather(isomir_type, size,
-           -value, -miRNA, -lab, -replicate, -lib_method_simple ) %>%
-    filter(size != 0) %>% 
-    group_by(miRNA, isomir_type, lab, replicate, lib_method_simple, size) %>%
-    summarise(counts = sum(value)) %>%
-    group_by(isomir_type, miRNA, lab, lib_method_simple, size) %>% 
-    summarise(reps = length(replicate), counts = sum(counts)) %>%
-    group_by(isomir_type, miRNA, reps, lib_method_simple, size) %>% 
-    summarise(nlabs = length(lab), counts = sum(counts)) %>% 
-    group_by(nlabs, reps, lib_method_simple, isomir_type) %>% 
-    summarise(n_isomirs = n(), counts = sum(counts)) %>% 
-    group_by(reps, lib_method_simple, isomir_type) %>%
-    arrange(isomir_type, lib_method_simple, desc(nlabs), reps) %>%
-    mutate(n_isomirs_cum = cumsum(n_isomirs)/sum(n_isomirs),
-           counts_cum = cumsum(counts)/sum(counts),
-           n_isomirs_sum = sum(n_isomirs),
-           counts_sum = sum(counts))
-
-plot_summarize_isomir_by_lab = function(df) {
-    plot_grid(
-        ggplot(filter(df, nlabs == 1), aes(x = n_isomirs_sum,
-                                           y = log10(counts_sum),
-                                          shape = as.factor(reps))) +
-            geom_point() +
-            scale_shape_discrete("filter:n_replicates") +
-            theme(axis.text.x = element_text(angle = 45, hjust = 0.5, vjust = 0.5)) +
-            xlab("number of unique isomiRs") +
-            ylab("counts of isomiRs") +
-            facet_grid(lib_method_simple~isomir_type),
-    ggplot(df, aes(group=as.factor(reps),
-                   color=as.factor(reps),
-                   x = n_isomirs_cum*100,
-                   y = counts_cum*100,
-                   shape=as.factor(nlabs))) +
-        geom_line() +
-        geom_point() +
-        scale_color_brewer("common:n_replicates", palette = "Set2") +
-        scale_size_continuous("filter:min_counts", range = c(1,2),
-                              breaks = c(0, 1, 2, 3, 4)) +
-        scale_shape_discrete("laboratory") +
-        facet_grid(lib_method_simple~isomir_type),
-    nrow = 2,
-    align = "v")
-}
-
 plot_summarize_isomir = function(df) {
     plot_grid(
-        ggplot(filter(df, reps == 1), aes(x = n_isomirs_sum,
-                                          y = log10(counts_sum),
-                                          shape = as.factor(lab))) +
+        ggplot(filter(df, reps == 1), aes(x = n_isomirs_sum, y = counts_sum,
+                                          shape = as.factor(lab),
+                                          size = min_counts)) +
             geom_point() +
-            scale_shape_discrete("filter:lab") +
+            scale_size_continuous("filter:min_counts", range = c(1,2),
+                                  breaks = c(0, 1, 2, 3, 4)) +
+            scale_shape_discrete("filter:min_counts") +
             theme(axis.text.x = element_text(angle = 45, hjust = 0.5, vjust = 0.5)) +
             xlab("number of unique isomiRs") +
             ylab("counts of isomiRs") +
@@ -123,7 +76,8 @@ plot_summarize_isomir = function(df) {
         ggplot(df, aes(color=as.factor(reps),
                        x = n_isomirs_cum*100,
                        y = counts_cum*100,
-                       shape=as.factor(lab))) +
+                       shape=as.factor(lab),
+                       size=min_counts)) +
             geom_point() +
             scale_color_brewer("common:n_replicates", palette = "Set2") +
             scale_size_continuous("filter:min_counts", range = c(1,2),

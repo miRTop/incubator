@@ -3,6 +3,7 @@ library(tidyverse)
 library(ggplot2)
 library(cowplot)
 library(edgeR)
+library(matrixStats)
 source("r_code/functions.R")
 
 theme_set(theme_bw(base_size = 11))
@@ -15,17 +16,6 @@ dds = DGEList(complete[, 13:ncol(complete)])
 dds = calcNormFactors(dds)
 counts = cpm(dds, normalized.lib.sizes = TRUE)
 
-pilot = cbind(complete[, 1], counts) %>%
-    gather(sample, value, -UID) %>%
-    mutate(sample = gsub("_tagMir-all", "", sample)) %>%
-    filter(sample  %in%  meta_pilot[["fixed_name"]]) %>%
-    left_join(complete[,1:12]) %>%
-    filter(value >= 1) %>%
-    mutate(Variant = ifelse(is.na(Variant), "Reference", Variant)) %>%
-    left_join(meta_pilot, by = c("sample" = "fixed_name")) %>%
-    filter(abs(iso_5p)<4, abs(iso_3p)<4, abs(iso_add)<4 )
-
-
 dds$samples %>% rownames_to_column("sample") %>%
     mutate(sample = gsub("_tagMir-all", "", sample)) %>%
     filter(sample  %in%  meta_pilot[["fixed_name"]]) %>%
@@ -35,18 +25,53 @@ dds$samples %>% rownames_to_column("sample") %>%
     facet_grid(lab~lib_method_simple) +
     ggsave("figures/replicates/isomirsea_libsize.png", width = 7, height = 9)
 
-lapply(2:3, function(x){
+
+new_average<- cbind(counts, average_val = rowMeans2(counts))
+probs <- c(0.25, 0.5, 0.75)
+pre_pilot = cbind(complete[, 1], new_average)
+
+counts_avg <- data.matrix(new_average[, "average_val"])
+cQuans<-colQuantiles(counts_avg, probs=probs)
+minQ <- cQuans[[1]]
+maxQ <- cQuans[[3]]
+all_exprn = cbind(complete[, 1], counts)
+low_exprn<-subset(pre_pilot, pre_pilot[,"average_val"] <= minQ)
+medium_exprn<-subset(pre_pilot, pre_pilot[,"average_val"] >minQ & pre_pilot[,"average_val"] < maxQ)
+high_exprn<-subset(pre_pilot, pre_pilot[,"average_val"] >= maxQ)
+
+exprn = function(fn_exrp, fname)
+{
+  filename3 = paste("figures/replicates/isomirsea_counts_per_isomir_type_",fname,".jpg",sep="")
+  filename2 = paste("figures/replicates/isomirsea_",fname,".jpg",sep="")
+  #filename2 = "figures/replicates/isomirsea_all_exprn.jpg"
+  #pilot = cbind(complete[, 1], counts) %>%
+  pilot = fn_exrp  %>%
+    gather(sample, value, -UID) %>%
+    mutate(sample = gsub("_tagMir-all", "", sample)) %>%
+    filter(sample  %in%  meta_pilot[["fixed_name"]]) %>%
+    left_join(complete[,1:12]) %>%
+    filter(value >= 1) %>%
+    mutate(Variant = ifelse(is.na(Variant), "Reference", Variant)) %>%
+    left_join(meta_pilot, by = c("sample" = "fixed_name")) %>%
+    filter(abs(iso_5p)<4, abs(iso_3p)<4, abs(iso_add)<4 )
+  
+  lapply(2:3, function(x){
     filter(pilot, value >= x) %>%
-        summarize_isomir %>%
-        mutate(min_counts = x)
-}) %>% bind_rows() %>%
+      summarize_isomir %>%
+      mutate(min_counts = x)
+  }) %>% bind_rows() %>%
     plot_summarize_isomir +
-    ggsave("figures/replicates/isomirsea.png", width = 9, height = 9)
+    ggsave(filename2, width = 9, height = 9)
 
-
-pilot %>% expression_isomirs_by_lab_protocol_isomir %>%
+  pilot %>% expression_isomirs_by_lab_protocol_isomir %>%
     ggplot(aes(x=lab,y=counts,fill=as.factor(reps))) +
     geom_boxplot() + scale_y_log10() +
     facet_grid(lib_method_simple~isomir_type) +
-    ggsave("figures/replicates/isomirsea_counts_per_isomir_type.png",
-           width = 9, height = 9)
+    ggsave(filename3, width = 9, height = 9)
+  rm(pilot)
+}
+
+exprn(all_exprn, "all_exprn")
+exprn(high_exprn, "high_exprn")
+exprn(medium_exprn, "medium_exprn")
+exprn(low_exprn, "low_exprn")
