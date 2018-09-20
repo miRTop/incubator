@@ -63,6 +63,7 @@ Help
 -   `add` means non-template additions
 -   `t3` and `t5` means trimming events
 -   `snp` means nt changes
+-   id for sequences are: `sequence` \_ `snp` \_ `add` \_ `t3` \_ `t5`
 
 Questions
 =========
@@ -205,10 +206,24 @@ R> full_join(group_by(ranked, sample) %>% summarise(library_size = sum(value, na
 ``` r
 R> filter(ranked, value >= 1) %>% dplyr::count(sample, mir, iso_loss) %>% ggplot(aes(x = sample, 
 +     y = n)) + geom_boxplot() + theme(axis.text.x = element_text(angle = 90, 
++     hjust = 1, vjust = 0.5)) + facet_wrap(~iso)
+```
+
+    ## Error: At least one layer must contain all faceting variables: `iso`.
+    ## * Plot is missing `iso`
+    ## * Layer 1 is missing `iso`
+
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-7-1.png" width="768" />
+
+-   How many isomiRs per miRNA only for trimming events (they can have additions beside trimming)
+
+``` r
+R> filter(ranked, value >= 1) %>% dplyr::count(sample, mir, iso_loss) %>% ggplot(aes(x = sample, 
++     y = n)) + geom_boxplot() + theme(axis.text.x = element_text(angle = 90, 
 +     hjust = 1, vjust = 0.5)) + facet_wrap(~iso_loss)
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-7-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-8-1.png" width="768" />
 
 -   Abundance importance for each isomiR/Reference found
 
@@ -218,7 +233,7 @@ R> ggplot(filter(ranked, rank < 10), aes(x = as.factor(rank), y = pct)) + geom_b
 +     facet_wrap(~sample)
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-8-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-9-1.png" width="768" />
 
 -   How many isomiRs per type
 
@@ -228,7 +243,7 @@ R> filter(ranked, value >= 1) %>% dplyr::count(sample, iso) %>% ggplot(aes(x = s
 +     hjust = 1, vjust = 0.5))
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-9-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-10-1.png" width="768" />
 
 -   From the miRNAs where the reference is the most expressed, what is the percentage of the isomiR expression from the total miRNA expression
 
@@ -238,7 +253,7 @@ R> ranked %>% filter(ref_is_1 == 1) %>% group_by(sample, mir) %>% ggplot(aes(x =
 +     hjust = 1, vjust = 0.5))
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-10-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-11-1.png" width="768" />
 
 -   From the miRNAs where the reference is the most expressed, Example of highly expressed isomiRs (&gt;40% of the miRNA family) and its reference
 
@@ -254,7 +269,7 @@ R> pheatmap(ma, clustering_method = "ward.D2", clustering_distance_rows = "corre
 +     clustering_distance_cols = "correlation", fontsize_row = 4)
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-11-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-12-1.png" width="768" />
 
 -   From the miRNAs where the reference is the most expressed, isomiR types that are &gt; 20% of the miRNA family
 
@@ -267,7 +282,7 @@ R> ranked %>% filter(ref_is_1 == 1, pct > 20, rank > 1) %>% group_by(sample, mir
 +     hjust = 1, vjust = 0.5))
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-12-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-13-1.png" width="768" />
 
 -   From miRNAs where the reference is NOT the most expressed, what types the top 1st isomiRs are
 
@@ -277,7 +292,7 @@ R> ranked %>% filter(ref_is_1 != 1, rank == 1) %>% ggplot(aes(sample)) + geom_ba
 +     vjust = 0.5))
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-13-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-14-1.png" width="768" />
 
 -   From miRNAs where the reference is NOT the most expressed, what normalized expression the top 1st isomiRs have
 
@@ -290,7 +305,7 @@ R>
 R> pheatmap(log2(ex + 1), fontsize_row = 3)
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-14-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-15-1.png" width="768" />
 
 APPENDIX
 --------
@@ -304,7 +319,7 @@ R> ranked %>% filter(ref_is_1 == 1) %>% filter(iso == "...t3" | iso == "..t5." |
 +     hjust = 1, vjust = 0.5))
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-15-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-16-1.png" width="768" />
 
 -   How many isomiRs per miRNA expression
 
@@ -314,7 +329,7 @@ R> filter(ranked, value >= 1) %>% group_by(sample, mir) %>% mutate(n_isomirs = n
 +     facet_wrap(~sample)
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-16-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-17-1.png" width="768" />
 
 -   How many isomiRs per type detected by the four technologies, only looking at trimming events
 
@@ -326,7 +341,7 @@ R> filter(ranked, value >= 1, iso_loss != "NaN") %>% distinct(iso, mir, iso_loss
 +     vjust = 0.5))
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-17-1.png" width="1056" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-18-1.png" width="1056" />
 
 -   How expressed isomiRs are (normalized value)
 
@@ -336,7 +351,7 @@ R> filter(ranked, normalized >= 1) %>% ggplot(aes(x = sample, y = normalized)) +
 +     hjust = 1, vjust = 0.5)) + geom_hline(yintercept = 100)
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-18-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-19-1.png" width="768" />
 
 -   How expressed isomiRs as percentage of total miRNA expression
 
@@ -346,7 +361,7 @@ R> filter(ranked, normalized >= 1) %>% ggplot(aes(x = sample, y = pct)) + geom_b
 +     hjust = 1, vjust = 0.5)) + geom_hline(yintercept = 0.1)
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-19-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-20-1.png" width="768" />
 
 -   What is the abundance position of the reference sequence in each miRNA
 
@@ -355,7 +370,7 @@ R> # which position the reference has in each sample
 R> ggplot(filter(ranked, !is.na(id)), aes(rank)) + geom_bar() + facet_wrap(~sample)
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-20-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-21-1.png" width="768" />
 
 -   Which isomiRs is the second most expressed with more than 20% of expression from the total of the miRNA
 
@@ -365,7 +380,7 @@ R> ranked %>% filter(ref_is_1 == 1, rank != 1, pct > 20) %>% ggplot(aes(sample))
 +     hjust = 1, vjust = 0.5))
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-21-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-22-1.png" width="768" />
 
 -   Example of hsa-miR-200a-5p with reference and isomiRs
 
@@ -381,7 +396,7 @@ R> pheatmap(ma, clustering_method = "ward.D2", clustering_distance_rows = "corre
 +     clustering_distance_cols = "correlation", fontsize_row = 4)
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-22-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-23-1.png" width="768" />
 
 -   isomiRs with &gt; 20% of the miRNA familiy
 
@@ -397,7 +412,7 @@ R> pheatmap(ma, clustering_method = "ward.D2", clustering_distance_rows = "corre
 +     clustering_distance_cols = "correlation", show_rownames = FALSE)
 ```
 
-<img src="commonality_files/figure-markdown_github/unnamed-chunk-23-1.png" width="768" />
+<img src="commonality_files/figure-markdown_github/unnamed-chunk-24-1.png" width="768" />
 
 ``` r
 R> library(isomiRs)

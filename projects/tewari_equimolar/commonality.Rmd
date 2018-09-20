@@ -78,6 +78,7 @@ When using only miRNAs that the top expressed sequence is the reference (miRXplo
 * `add` means non-template additions
 * `t3` and `t5` means trimming events
 * `snp` means nt changes
+* id for sequences are: `sequence` _ `snp` _ `add` _ `t3` _ `t5`
 
 # Questions
 
@@ -130,7 +131,18 @@ full_join(
 ```
 
 
+
 * How many isomiRs per miRNA
+
+```{r}
+filter(ranked, value >= 1) %>% dplyr::count(sample, mir, iso_loss) %>% 
+    ggplot(aes(x = sample, y = n)) +
+    geom_boxplot() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    facet_wrap(~iso)
+```
+
+* How many isomiRs per miRNA only for trimming events (they can have additions beside trimming)
 
 ```{r}
 filter(ranked, value >= 1) %>% dplyr::count(sample, mir, iso_loss) %>% 
@@ -176,7 +188,7 @@ ranked %>%
 
 * From the miRNAs where the reference is the most expressed, Example of highly expressed isomiRs (>40% of the miRNA family) and its reference
 
-```{r}
+```{r, fig.height=11}
 ex = ranked %>% group_by(sample, mir) %>% 
     mutate(ref_is_1 = length(mir[rank == 1 & iso == "..."])) %>% 
     ungroup %>% 
@@ -227,7 +239,7 @@ ranked %>%
 
 * From miRNAs where the reference is NOT the most expressed, what normalized expression the top 1st isomiRs have
 
-```{r}
+```{r, fig.height=11}
 ex = ranked %>%
     filter(ref_is_1 != 1, rank == 1, !grepl("4N_[ABCD]", sample), iso!="snp...") %>% 
     unite("seqid", mir, seq, iso_nt) %>% 
