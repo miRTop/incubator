@@ -8,6 +8,13 @@ People: Lorena, Arun, Ioannis, Marc, Phillipe
 
 ### The discussion was focused on finding too many isomiRs from the tewari equimolar data
 
+Ideas to explain this:
+
+* non purified miRXplore sample
+* illumina software generating 5' end that are not real
+* trimming tool generating 3' end that are not real
+* if isomiRs are errors from an unique sequence, and this happens after ligation, there should be a correlation of isomiRs and reference expression
+
 ### Ready to do points:
 
 * Lorena has to send FASTA file of all sequences to Ioannis to get the features that will be used for the machine learning analysis once we can classify sequence into reproducible or not.
@@ -15,6 +22,7 @@ People: Lorena, Arun, Ioannis, Marc, Phillipe
 * Marc to contact tewari's paper authors
 * Lorena to analyze other data set with spike-ints
 * Lorena to share the fasta files to be analized with miRGe2 (maybe?)
+* Lorena to compare distribution of plasma sample and equimolar to see if they are the same
 
 
 ## 08-30-2018
