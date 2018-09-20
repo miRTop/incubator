@@ -1,0 +1,330 @@
+details:
+- algorithm:
+    adapters:
+    - 4N
+    - TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: 4N_A.Lab5.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/4N_A.Lab5.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters:
+    - 4N
+    - TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: 4N_B.Lab2.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/4N_B.Lab2.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters:
+    - 4N
+    - TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: 4N_B.Lab4.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/4N_B.Lab4.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters:
+    - 4N
+    - TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: 4N_B.Lab6.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/4N_B.Lab6.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters:
+    - 4N
+    - TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: 4N_C.Lab6.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/4N_C.Lab6.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters:
+    - 4N
+    - TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: 4N_D.Lab1.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/4N_D.Lab1.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters:
+    - 4N
+    - TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: 4N_NEXTflex.Lab7.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/4N_NEXTflex.Lab7.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters:
+    - 4N
+    - TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: 4N_NEXTflex.Lab8.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/4N_NEXTflex.Lab8.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters:
+    - 4N
+    - TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: 4N_Xu.Lab5.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/4N_Xu.Lab5.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: CleanTag.Lab5.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/CleanTag.Lab5.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: AGATCGGAAGAGCACACGTCTGAACTCC
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: NEBNext.Lab1.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/NEBNext.Lab1.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: AGATCGGAAGAGCACACGTCTGAACTCC
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: NEBNext.Lab3.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/NEBNext.Lab3.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: AGATCGGAAGAGCACACGTCTGAACTCC
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: NEBNext.Lab4.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/NEBNext.Lab4.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: AGATCGGAAGAGCACACGTCTGAACTCC
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: NEBNext.Lab5.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/NEBNext.Lab5.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: AGATCGGAAGAGCACACGTCTGAACTCCG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: NEBNext.Lab9.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/NEBNext.Lab9.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: TruSeq.Lab1.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/TruSeq.Lab1.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: TruSeq.Lab2.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/TruSeq.Lab2.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: TruSeq.Lab3.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/TruSeq.Lab3.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: TruSeq.Lab5.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/TruSeq.Lab5.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: TruSeq.Lab6.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/TruSeq.Lab6.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: TruSeq.Lab8.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/TruSeq.Lab8.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+- algorithm:
+    adapters: TGGAATTCTCGGGTGCCAAGGAACTCCAG
+    aligner: star
+    expression_caller:
+    - trna
+    - seqcluster
+    - mirdeep2
+    species: hsa
+  analysis: smallRNA-seq
+  description: TruSeq.Lab9.SynthEQ
+  files:
+  - /home/lp113/temporal/lp113/tewari/EQUIMOLAR/raw/TruSeq.Lab9.SynthEQ.fastq.gz
+  genome_build: hg19
+  metadata: {}
+fc_name: bcbio_eq-merged
+upload:
+  dir: /home/lp113/temporal/lp113/tewari/EQUIMOLAR/bcbio_eq-merged/final

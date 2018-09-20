@@ -1,0 +1,381 @@
+---
+title: "Commonality among protocols for equimolar samples"
+author: "Lorena Pantano"
+date: "`r Sys.Date()`"
+output:
+    md_document:
+        variant: markdown_github
+        toc: false
+params:
+    data: "results/ranked.rda"
+    outputDir: "."
+---
+
+```{r aes, results='hide'}
+library(knitr)
+library(ggplot2)
+library(pheatmap)
+
+# Set seed for reproducibility
+set.seed(1454944673L)
+
+opts_chunk[["set"]](
+    autodep = TRUE,
+    bootstrap.show.code = FALSE,
+    cache = TRUE,
+    cache.lazy = TRUE,
+    dev = c("png", "pdf"),
+    error = TRUE,
+    fig.height = 6,
+    fig.retina = 2L,
+    fig.width = 8,
+    highlight = TRUE,
+    message = FALSE,
+    prompt = TRUE,
+    # formatR required for tidy code
+    tidy = TRUE,
+    warning = FALSE,
+    results = 'asis')
+
+theme_set(
+    theme_light(base_size = 11L))
+theme_update(
+    legend.justification = "center",
+    legend.position = "bottom")
+```
+
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+load(params$data)
+```
+
+Equimolar samples from tewari et al paper was analyzed with bcbio and processed with isomiRs Bioconductor pakcage. This will remove sequences with only 1 read, sequences with nt changes with a frequency < 10% in the miRNA family will be considered error sequencing and non-template additions that are not U or A are removed.
+
+Extra filtering applied:
+
+* only using sequences that map to miRNAs that are in the miRXplore sample and
+were identified in miRBase 21 (510 miRNA are the maximum to be detected)
+* Only human sequences were used. (7 miRNAs and their isomiRs weren't detected in any sample)
+* miRNAs that didn't contain one sequence being inside the miRXplore sample were
+removed (13 miRNAs with their isomiRs were removed)
+
+
+# Conclusion
+
+The majority of miRNAs had the reference sequences as top expressed.
+
+The majority of isomiRs correspon to trimming events.
+
+4N generetes more trimming events.
+
+When using only miRNAs that the top expressed sequence is the reference (miRXplore sequence), the majority of isomiRs where low expressed compared to that sequence abundance (<20% of the total miRNA expression, except for 4N protocol).
+
+# Help
+
+* `add` means non-template additions
+* `t3` and `t5` means trimming events
+* `snp` means nt changes
+
+# Questions
+
+* How many miR has at least one sequence as expected by the miRX sample
+
+```{r}
+# how many mir has at least one sequence at expected
+ranked %>% 
+    distinct(sample, mir) %>% 
+    dplyr::count(sample) %>% kable()
+```
+
+* How many samples by lab and protocol
+
+```{r}
+distinct(ranked, sample, lab, protocol) %>% dplyr::count(lab) %>% kable()
+distinct(ranked, sample, lab, protocol) %>% dplyr::count(protocol) %>% kable()
+```
+
+* Library size after normalization
+
+```{r}
+group_by(ranked, sample) %>% 
+    summarise(library_size = sum(value, na.rm = T)) %>% kable()
+```
+
+* How many miRNAs has the reference as the top expressed
+
+```{r}
+# % of miRNA which top1 is the reference
+full_join(
+    dplyr::count(distinct(ranked, sample, mir), sample),
+    dplyr::count(filter(ranked,  rank == 1, !is.na(id)), sample),
+    by = "sample", suffix = c("_total", "_ref_is_1")
+) %>% mutate(pct = n_ref_is_1/n_total*100) %>% kable()
+```
+
+* How isomiRs correlates with library size
+
+```{r}
+full_join(
+    group_by(ranked, sample) %>% 
+        summarise(library_size = sum(value, na.rm = T)),
+    group_by(ranked, sample) %>% 
+        summarise(sequences = n())
+) %>% ggplot(aes(library_size, sequences)) +
+    geom_point() +
+    scale_x_log10()
+
+```
+
+
+* How many isomiRs per miRNA
+
+```{r}
+filter(ranked, value >= 1) %>% dplyr::count(sample, mir, iso_loss) %>% 
+    ggplot(aes(x = sample, y = n)) +
+    geom_boxplot() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    facet_wrap(~iso_loss)
+```
+
+* Abundance importance for each isomiR/Reference found
+
+```{r}
+# Importance of isomiRs
+ggplot(filter(ranked, rank<10), aes(x = as.factor(rank), y = pct)) +
+    geom_boxplot() +
+    facet_wrap(~sample)
+```
+
+* How many isomiRs per type
+
+```{r}
+filter(ranked, value >= 1) %>% dplyr::count(sample, iso) %>% 
+    ggplot(aes(x = sample, y = n)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4) + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+```
+
+
+* From the miRNAs where the reference is the most expressed, what is the percentage of the isomiR expression from the total miRNA expression
+
+```{r}
+ranked %>% 
+    filter(ref_is_1 == 1) %>%
+    group_by(sample, mir) %>% 
+    ggplot(aes(x = sample, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+```
+
+
+* From the miRNAs where the reference is the most expressed, Example of highly expressed isomiRs (>40% of the miRNA family) and its reference
+
+```{r}
+ex = ranked %>% group_by(sample, mir) %>% 
+    mutate(ref_is_1 = length(mir[rank == 1 & iso == "..."])) %>% 
+    ungroup %>% 
+    filter(ref_is_1 == 1, pct > 40, rank > 1)  %>% 
+    group_by(sample, mir) %>%
+    arrange(sample, mir, desc(normalized)) %>% 
+    ungroup() %>%
+    unite("seqid", seq, iso_nt) %>%
+    select(sample, normalized, seqid) %>%
+    spread("sample", "normalized", fill = 0) 
+ma = log2(as.matrix(ex[,2:20])+1)
+rownames(ma) = ex$seqid
+pheatmap(ma, clustering_method = "ward.D2",
+         clustering_distance_rows = "correlation",
+         clustering_distance_cols = "correlation", fontsize_row = 4)
+ 
+```
+
+
+* From the miRNAs where the reference is the most expressed, isomiR types that are > 20% of the miRNA family
+
+```{r}
+ ranked %>%
+    filter(ref_is_1 == 1, pct > 20, rank > 1)  %>% 
+    group_by(sample, mir) %>%
+    arrange(sample, mir, desc(normalized)) %>% 
+    ungroup() %>%
+    unite("seqid", seq, iso_nt) %>%
+    distinct(protocol, seqid, iso) %>% 
+    dplyr::count(protocol, iso) %>% 
+    ggplot(aes(x = protocol, y = n)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+```
+
+* From miRNAs where the reference is NOT the most expressed, what types the top 1st isomiRs are
+
+```{r}
+ranked %>%
+    filter(ref_is_1 != 1, rank == 1) %>% 
+    ggplot(aes(sample)) +
+    geom_bar() +
+    facet_wrap(~iso) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+```
+
+* From miRNAs where the reference is NOT the most expressed, what normalized expression the top 1st isomiRs have
+
+```{r}
+ex = ranked %>%
+    filter(ref_is_1 != 1, rank == 1, !grepl("4N_[ABCD]", sample), iso!="snp...") %>% 
+    unite("seqid", mir, seq, iso_nt) %>% 
+    select(sample, normalized, seqid) %>% 
+    spread("sample", "normalized", fill = 0) %>% 
+    as.data.frame() %>% 
+    column_to_rownames("seqid") %>% 
+    as.matrix()
+
+pheatmap(log2(ex+1), fontsize_row = 3)
+```
+
+
+## APPENDIX
+
+*  From the miRNAs where the reference is the most expressed, From the miRNAs where the reference is the most expressed, what is the percentage of the isomiR expression from the total miRNA expression only looking at trimming
+
+```{r}
+ranked %>% 
+    filter(ref_is_1 == 1) %>%
+    filter(iso == "...t3" | iso == "..t5." | iso == "..t5.t3") %>% 
+    ggplot(aes(x = sample, fill = iso_loss)) +
+    geom_bar() +
+    facet_wrap(~pct_cat, nrow = 4) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+```
+
+
+* How many isomiRs per miRNA expression
+
+```{r}
+filter(ranked, value >= 1) %>% 
+    group_by(sample, mir) %>% 
+    mutate(n_isomirs = n()) %>% 
+    ggplot(aes(x = n_isomirs, y = log2(value + 1), color = protocol)) +
+    geom_point(alpha=0.3) +
+    facet_wrap(~sample)
+
+```
+
+
+* How many isomiRs per type detected by the four technologies, only looking at trimming events
+
+```{r, fig.width=11}
+filter(ranked, value >= 1,  iso_loss !="NaN") %>%
+    distinct(iso, mir, iso_loss, seq, reproducible_protocol) %>% 
+    dplyr::count(iso, reproducible_protocol, iso_loss) %>%
+    ggplot(aes(x = reproducible_protocol, y = n)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso_loss) + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+```
+
+
+
+* How expressed isomiRs are (normalized value)
+
+```{r}
+filter(ranked, normalized >= 1) %>%  
+    ggplot(aes(x = sample, y = normalized)) +
+    geom_boxplot() +
+    facet_wrap(~iso, nrow = 4) + 
+    scale_y_log10() + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    geom_hline(yintercept = 100)
+
+```
+
+* How expressed isomiRs as percentage of total miRNA expression
+
+```{r}
+filter(ranked, normalized >= 1) %>%  
+    ggplot(aes(x = sample, y = pct)) +
+    geom_boxplot() +
+    facet_wrap(~iso, nrow = 4) + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    geom_hline(yintercept = 0.1)
+```
+
+
+* What is the abundance position of the reference sequence in each miRNA
+
+```{r}
+# which position the reference has in each sample
+ggplot(filter(ranked, !is.na(id)),
+       aes(rank)) +
+    geom_bar() +
+    facet_wrap(~sample)
+```
+
+
+* Which isomiRs is the second most expressed with more than 20% of expression from the total of the miRNA
+
+```{r}
+ranked %>%
+    filter(ref_is_1 == 1, rank != 1, pct > 20) %>% 
+    ggplot(aes(sample)) +
+    geom_bar() +
+    facet_wrap(~iso_loss, nrow = 4) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+```
+
+
+* Example of hsa-miR-200a-5p with reference and isomiRs
+
+```{r, fig.height=10}
+# example of miR where top isomiRs are consistent among some protocols
+ex = ranked %>% 
+    filter(mir == "hsa-miR-200a-5p") %>% 
+    group_by(sample, mir) %>%
+    arrange(sample, mir, desc(value)) %>% 
+    filter(rank > 0) %>% 
+    ungroup() %>% 
+    unite("seqid", seq, iso_nt) %>%
+    select(sample, value, seqid) %>% 
+    spread("sample", "value", fill = 0)
+ma = log2(as.matrix(ex[,2:22])+1)
+rownames(ma) = ex$seqid
+pheatmap(ma, clustering_method = "ward.D2",
+         clustering_distance_rows = "correlation",
+         clustering_distance_cols = "correlation", fontsize_row = 4)
+```
+
+* isomiRs with > 20% of the miRNA familiy
+
+```{r}
+ex = ranked %>% group_by(sample, mir) %>% 
+    mutate(ref_is_1 = length(mir[rank == 1 & iso == "..."])) %>% 
+    ungroup %>% 
+    filter(ref_is_1 == 1, pct > 20, rank > 1)  %>% 
+    group_by(sample, mir) %>%
+    arrange(sample, mir, desc(normalized)) %>% 
+    ungroup() %>%
+    unite("seqid", seq, iso_nt) %>%
+    select(sample, normalized, seqid) %>%
+    spread("sample", "normalized", fill = 0) 
+ma = log2(as.matrix(ex[,2:22])+1)
+rownames(ma) = ex$seqid
+pheatmap(ma, clustering_method = "ward.D2",
+         clustering_distance_rows = "correlation",
+         clustering_distance_cols = "correlation", show_rownames = FALSE)
+```
+
+
+```{r, eval=FALSE}
+library(isomiRs)
+isoPlot(ids, type = "all", column = "protocol")
+
+```
+
