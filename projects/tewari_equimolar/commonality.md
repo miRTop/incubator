@@ -64,6 +64,8 @@ Help
 -   `t3` and `t5` means trimming events
 -   `snp` means nt changes
 -   id for sequences are: `sequence` \_ `snp` \_ `add` \_ `t3` \_ `t5`
+-   table is in `results/ranked.rda` object
+-   `annotate_with_mirx_data.R` was used to load and parse the data according the previous filters.
 
 Questions
 =========
