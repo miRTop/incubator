@@ -1,5 +1,22 @@
 project road map: https://github.com/miRTop/incubator/projects/2
 
+## 09-20-2018
+
+People: Lorena, Arun, Ioannis, Marc, Phillipe
+
+* We discussed the equimolar data after being analyzed by bcbio pipeline: https://github.com/miRTop/incubator/blob/master/projects/tewari_equimolar/commonality.md
+
+### The discussion was focused on finding too many isomiRs from the tewari equimolar data
+
+### Ready to do points:
+
+* Lorena has to send FASTA file of all sequences to Ioannis to get the features that will be used for the machine learning analysis once we can classify sequence into reproducible or not.
+* Ioannis to contact Qiagen and miRXplore company
+* Marc to contact tewari's paper authors
+* Lorena to analyze other data set with spike-ints
+* Lorena to share the fasta files to be analized with miRGe2 (maybe?)
+
+
 ## 08-30-2018
 
 People: Lorena, Aarun, Ioannis
