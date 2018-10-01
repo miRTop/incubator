@@ -1,0 +1,316 @@
+---
+title: "Comparison between equimolar samples and plasma samples"
+author: "Lorena Pantano"
+date: "`r Sys.Date()`"
+output:
+    md_document:
+        variant: markdown_github
+        toc: false
+params:
+    data: "data/data_gff.rda"
+    outputDir: "."
+---
+
+```{r aes, results='hide'}
+library(knitr)
+library(ggplot2)
+library(pheatmap)
+
+# Set seed for reproducibility
+set.seed(1454944673L)
+
+opts_chunk[["set"]](
+    autodep = TRUE,
+    bootstrap.show.code = FALSE,
+    cache = TRUE,
+    cache.lazy = TRUE,
+    dev = c("png", "pdf"),
+    error = TRUE,
+    fig.height = 6,
+    fig.retina = 2L,
+    fig.width = 8,
+    highlight = TRUE,
+    message = FALSE,
+    prompt = TRUE,
+    # formatR required for tidy code
+    tidy = TRUE,
+    warning = FALSE,
+    results = 'asis')
+
+theme_set(
+    theme_light(base_size = 11L))
+theme_update(
+    legend.justification = "center",
+    legend.position = "bottom")
+```
+
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+load(params$data)
+```
+
+Equimolar samples from tewari et al paper was analyzed with bcbio and processed with isomiRs Bioconductor pakcage. This will remove sequences with only 1 read, sequences with nt changes with a frequency < 10% in the miRNA family will be considered error sequencing and non-template additions that are not U or A are removed.
+
+Extra filtering applied:
+
+* only using sequences that map to miRNAs that are in the miRXplore sample and
+were identified in miRBase 21 (510 miRNA are the maximum to be detected)
+* Only human sequences were used. (7 miRNAs and their isomiRs weren't detected in any sample)
+* miRNAs that didn't contain one sequence being inside the miRXplore sample were
+removed (13 miRNAs with their isomiRs were removed)
+* samples from human plasma were added in the same way here.
+
+# Conclusion
+
+The majority of miRNAs had the reference sequences as top expressed.
+
+The majority of isomiRs correspon to trimming events.
+
+4N generetes more trimming events.
+
+When using only miRNAs that the top expressed sequence is the reference (miRXplore sequence), the majority of isomiRs where low expressed compared to that sequence abundance (<20% of the total miRNA expression, except for 4N protocol).
+
+# Help
+
+* `add` means non-template additions
+* `t3` and `t5` means trimming events
+* `snp` means nt changes
+* id for sequences are: `sequence` _ `snp` _ `add` _ `t3` _ `t5`
+* table is in `results/ranked.rda` object
+* `annotate_with_mirx_data.R` was used to load and parse the data according the previous filters.
+
+# Questions
+
+* How many samples by lab and protocol
+
+```{r}
+distinct(equimolar, sample, lab, protocol) %>% dplyr::count(protocol, lab) %>% kable()
+distinct(plasma, sample, lab, protocol) %>% dplyr::count(protocol, lab) %>% kable()
+```
+
+* Library size
+
+```{r}
+group_by(equimolar, short) %>% 
+    summarise(library_size = sum(value, na.rm = T)) %>% kable()
+group_by(plasma, short) %>% 
+    summarise(library_size = sum(value, na.rm = T)) %>% kable()
+```
+
+* How many miRNAs has the reference as the top expressed
+
+```{r}
+# % of miRNA which top1 is the reference
+full_join(
+    dplyr::count(distinct(equimolar, short, mi_rna), short),
+    dplyr::count(filter(equimolar,  rank == 1, !is.na(id)), short),
+    by = "short", suffix = c("_total", "_ref_is_1")
+) %>% mutate(pct = n_ref_is_1/n_total*100) %>% kable()
+
+# % of miRNA which top1 is the reference
+full_join(
+    dplyr::count(distinct(plasma, short, mi_rna), short),
+    dplyr::count(filter(plasma,  rank == 1, iso == "..."), short),
+    by = "short", suffix = c("_total", "_ref_is_1")
+) %>% mutate(pct = n_ref_is_1/n_total*100) %>% kable()
+```
+
+
+* How many isomiRs per miRNA
+
+```{r}
+filter(equimolar, value >= 1) %>% dplyr::count(short, mi_rna, iso) %>% 
+    ggplot(aes(x = short, y = n)) +
+    geom_boxplot() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    facet_wrap(~iso, scales = "free_y") +
+    ggtitle("equimolar")
+
+filter(plasma, value >= 1) %>% dplyr::count(short, mi_rna, iso) %>% 
+    ggplot(aes(x = short, y = n)) +
+    geom_boxplot() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    facet_wrap(~iso, scales = "free_y") +
+    ggtitle("plasma")
+```
+
+
+* Abundance importance for each isomiR/Reference found
+
+```{r}
+# Importance of isomiRs
+ggplot(filter(equimolar, rank<10), aes(x = as.factor(rank), y = pct)) +
+    geom_boxplot() +
+    facet_wrap(~short, scales = "free_y") +
+    ggtitle("equimolar")
+
+ggplot(filter(plasma, rank<10), aes(x = as.factor(rank), y = pct)) +
+    geom_boxplot() +
+    facet_wrap(~short, scales = "free_y") +
+    ggtitle("plasma")
+```
+
+* How many isomiRs per type
+
+```{r}
+filter(equimolar, normalized >= 1) %>% dplyr::count(short, iso) %>% 
+    ggplot(aes(x = short, y = n)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar")
+
+filter(plasma, normalized >= 1) %>% dplyr::count(short, iso) %>% 
+    ggplot(aes(x = short, y = n)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("plasma")
+```
+
+
+* From the miRNAs where the reference is the most expressed, what is the percentage of the isomiR expression from the total miRNA expression
+
+```{r}
+equimolar %>% 
+    filter(ref_is_1 == 1) %>%
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar")
+
+plasma %>% 
+    filter(ref_is_1 == 1) %>%
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("plasma")
+# 
+# ranked %>% 
+#         filter(ref_is_1 == 1, !grepl("snp", iso)) %>%
+#     group_by(sample) %>% 
+#     mutate(total_isomirs = n()) %>% 
+#     group_by(protocol, sample, iso, pct_cat) %>% 
+#     summarize(pct_sequences = n()/total_isomirs[1]) %>% 
+#     ggplot(aes(x = iso, color = pct_cat, y=pct_sequences)) +
+#     geom_boxplot() + 
+#     facet_wrap(~protocol) +
+#     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+```
+
+
+* From the miRNAs where the reference is the most expressed, what is the percentage of the isomiR expression from the total miRNA expression by protocol
+
+```{r}
+equimolar %>% 
+    filter(ref_is_1 == 1) %>%
+    group_by(read, reproducible_protocol, iso) %>% 
+    summarise(pct_average = mean(pct)) %>% 
+    mutate(pct_cat = cut(pct_average,
+                          breaks = c(-1, 0.1, 1, 5, 10, 20, 50, 101),
+                          labels = c("<0.1", "0.1-1", "1-5", "5-10", "10-20", "20-50", ">50"))) %>% 
+    ggplot(aes(x = reproducible_protocol,
+               fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar")
+
+plasma %>% 
+    filter(ref_is_1 == 1) %>%
+    group_by(read, reproducible_protocol, iso) %>% 
+    summarise(pct_average = mean(pct)) %>% 
+    mutate(pct_cat = cut(pct_average,
+                          breaks = c(-1, 0.1, 1, 5, 10, 20, 50, 101),
+                          labels = c("<0.1", "0.1-1", "1-5", "5-10", "10-20", "20-50", ">50"))) %>% 
+    ggplot(aes(x = reproducible_protocol,
+               fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("plasma")
+```
+
+
+* From the miRNAs where the reference is the most expressed, Example of highly expressed isomiRs (>40% of the miRNA family) and its reference
+
+```{r, fig.height=11}
+ex = 
+    equimolar %>% 
+    filter(ref_is_1 == 1, pct > 30, rank > 1)  %>% 
+    group_by(short, mi_rna) %>%
+    arrange(short, mi_rna, desc(normalized)) %>% 
+    ungroup() %>%
+    unite("seqid", read, mi_rna, iso_nt) %>% 
+    select(short, normalized, seqid) %>%
+    spread("short", "normalized", fill = 0) 
+ma = log2(as.matrix(ex[,2:21])+1)
+rownames(ma) = ex$seqid
+pheatmap(ma, clustering_method = "ward.D2",
+         clustering_distance_rows = "correlation",
+         clustering_distance_cols = "correlation", fontsize_row = 4)
+ 
+```
+
+
+* From the miRNAs where the reference is the most expressed, isomiR types that are > 20% of the miRNA family
+
+```{r}
+ equimolar %>%
+    filter(ref_is_1 == 1, pct > 20, rank > 1)  %>% 
+    group_by(short, mi_rna) %>%
+    arrange(short, mi_rna, desc(normalized)) %>% 
+    ungroup() %>%
+    unite("seqid", read, iso_nt) %>%
+    distinct(protocol, seqid, iso) %>% 
+    dplyr::count(protocol, iso) %>% 
+    ggplot(aes(x = protocol, y = iso, fill = n)) +
+    geom_tile() +
+    scale_fill_gradientn(colors = c("white", "black")) + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar")
+
+ plasma %>%
+    filter(ref_is_1 == 1, pct > 20, rank > 1)  %>% 
+    group_by(short, mi_rna) %>%
+    arrange(short, mi_rna, desc(normalized)) %>% 
+    ungroup() %>%
+    unite("seqid", read, iso_nt) %>%
+    distinct(protocol, seqid, iso) %>% 
+    dplyr::count(protocol, iso) %>% 
+    ggplot(aes(x = protocol, y = iso, fill = n)) +
+    geom_tile() +
+    scale_fill_gradientn(colors = c("white", "black")) + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("plasma")
+
+```
+
+* From miRNAs where the reference is NOT the most expressed, what types the top 1st isomiRs are
+
+```{r}
+equimolar %>%
+    filter(ref_is_1 != 1, rank == 1) %>% 
+    ggplot(aes(short)) +
+    geom_bar() +
+    facet_wrap(~iso) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar")
+
+plasma %>%
+    filter(ref_is_1 != 1, rank == 1) %>% 
+    ggplot(aes(short)) +
+    geom_bar() +
+    facet_wrap(~iso) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("plasma")
+```
+
+
