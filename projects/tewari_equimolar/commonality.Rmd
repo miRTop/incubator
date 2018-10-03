@@ -182,7 +182,18 @@ ranked %>%
     group_by(sample, mir) %>% 
     ggplot(aes(x = sample, fill = pct_cat)) +
     geom_bar() +
-    facet_wrap(~iso, nrow = 4) +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+ranked %>% 
+        filter(ref_is_1 == 1, !grepl("snp", iso)) %>%
+    group_by(sample) %>% 
+    mutate(total_isomirs = n()) %>% 
+    group_by(protocol, sample, iso, pct_cat) %>% 
+    summarize(pct_sequences = n()/total_isomirs[1]) %>% 
+    ggplot(aes(x = iso, color = pct_cat, y=pct_sequences)) +
+    geom_boxplot() + 
+    facet_wrap(~protocol) +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 
 ```
@@ -221,9 +232,9 @@ pheatmap(ma, clustering_method = "ward.D2",
     unite("seqid", seq, iso_nt) %>%
     distinct(protocol, seqid, iso) %>% 
     dplyr::count(protocol, iso) %>% 
-    ggplot(aes(x = protocol, y = n)) +
-    geom_bar(stat = "identity") +
-    facet_wrap(~iso, nrow = 4) +
+    ggplot(aes(x = protocol, y = iso, fill = n)) +
+    geom_tile() +
+    scale_fill_gradientn(colors = c("white", "black")) + 
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
 
 ```

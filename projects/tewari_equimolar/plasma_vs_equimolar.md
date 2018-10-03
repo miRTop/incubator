@@ -68,6 +68,11 @@ Help
 -   table is in `results/ranked.rda` object
 -   `annotate_with_mirx_data.R` was used to load and parse the data according the previous filters.
 
+Data
+====
+
+Data is in stored in the file `data/data_gff.rda`. When you `load(file)` in R, you'll see two tables. `equimolar` and `plasma`, both of them in the same format and with the same columns.
+
 Questions
 =========
 
@@ -426,3 +431,23 @@ R> plasma %>% filter(ref_is_1 != 1, rank == 1) %>% ggplot(aes(short)) + geom_bar
 ```
 
 <img src="plasma_vs_equimolar_files/figure-markdown_github/unnamed-chunk-12-2.png" width="768" />
+
+-   From miRNAs where the reference is NOT the most expressed, what is the percentage of the isomiR expression from the total miRNA expression
+
+``` r
+R> equimolar %>% filter(ref_is_1 != 1) %>% group_by(short, mi_rna) %>% ggplot(aes(x = short, 
++     fill = pct_cat)) + geom_bar() + facet_wrap(~iso, nrow = 4, scales = "free_y") + 
++     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) + 
++     ggtitle("equimolar")
+```
+
+<img src="plasma_vs_equimolar_files/figure-markdown_github/unnamed-chunk-13-1.png" width="768" />
+
+``` r
+R> plasma %>% filter(ref_is_1 != 1) %>% group_by(short, mi_rna) %>% ggplot(aes(x = short, 
++     fill = pct_cat)) + geom_bar() + facet_wrap(~iso, nrow = 4, scales = "free_y") + 
++     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) + 
++     ggtitle("plasma")
+```
+
+<img src="plasma_vs_equimolar_files/figure-markdown_github/unnamed-chunk-13-2.png" width="768" />

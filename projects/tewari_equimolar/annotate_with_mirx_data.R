@@ -91,7 +91,10 @@ ranked = parsed %>% filter(any_in_mirx == 1) %>% # 25665 (seq, mir rows), only a
     group_by(sample) %>%
     mutate(pct_cat = cut(pct,
                           breaks = c(-1, 0.1, 1, 5, 10, 20, 50, 101),
-                          labels = c("<0.1", "0.1-1", "1-5", "5-10", "10-20", "20-50", ">50"))) %>% 
+                          labels = c("<0.1", "0.1-1", "1-5", "5-10", "10-20", "20-50", ">50")),
+           mir_coverage = cut(total,
+                              breaks = c(-1, 1, 10, 100, 1000, 1e30),
+                              labels = c("<1", "1-10", "10-100", "100-1000", ">1000"))) %>% 
     ungroup()
 
 save(ranked, file = "results/ranked.rda")
