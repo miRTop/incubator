@@ -73,6 +73,8 @@ Data
 
 Data is in stored in the file `data/data_gff.rda`. When you `load(file)` in R, you'll see two tables. `equimolar` and `plasma`, both of them in the same format and with the same columns.
 
+[download R object](https://www.dropbox.com/sh/ikt994m56qxf8ju/AADMmnYEMUkzgvXBAN0CUeaha?dl=1).
+
 Questions
 =========
 
