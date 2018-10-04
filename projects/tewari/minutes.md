@@ -14,13 +14,14 @@ Ideas that came up:
 * Ioannis confirmed that the equimolar sample may no be purified. 
 * Use cutoff tool from Phillipe group, discard low expressed reads
 * equimolar from miRGe tool
+* Ioannis mentioned extra sequences in the equimolar samples. One supplementary table from the paper shows which one are, so we can look at the variations of these ones.
 
-### Ready to do points:
+### Ready to-do points:
 
 * Lorena has to send FASTA file of all sequences to Ioannis to get the features that will be used for the machine learning analysis once we can classify sequence into reproducible or not.
 * Marc to contact tewari's paper authors: 
- * if we can know what are the extra sequences they added from another company
- * whether they have equimolar and plasma samples or all is gone
+  * whether they have equimolar and plasma samples or all is gone
+  * Is there information of the library size each lab did?
 * Lorena to analyze other data set with spike-ints: working on this
 
 ### Next meeting 10-18-2018, 10am boston time.
