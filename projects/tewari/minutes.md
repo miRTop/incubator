@@ -6,6 +6,8 @@ People: Lorena, Ioannis, Marc, Phillipe, Lauro, Gianvito
 
 * We discussed the equimolar data compared to plasma data to look at difference between distribution of what is the most expressed and what is the percentage of the rest of the sequences.
 
+https://github.com/miRTop/incubator/blob/master/projects/tewari_equimolar/plasma_vs_equimolar.md
+
 Ideas that came up:
 
 * maybe too much noise from miR like let7*
