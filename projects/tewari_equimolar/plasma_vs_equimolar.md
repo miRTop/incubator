@@ -350,7 +350,7 @@ R> custom %>% group_by(short, mi_rna) %>% ggplot(aes(x = short, fill = pct_cat))
 +     hjust = 1, vjust = 0.5)) + ggtitle("custom - razer3")
 ```
 
-    ## Error in eval(lhs, parent, parent): object 'custom' not found
+<img src="plasma_vs_equimolar_files/figure-markdown_github/unnamed-chunk-8-3.png" width="768" />
 
 ``` r
 R> equimolar_mirge %>% filter(ref_is_1 == 1) %>% group_by(short, mi_rna) %>% ggplot(aes(x = short, 
@@ -359,7 +359,7 @@ R> equimolar_mirge %>% filter(ref_is_1 == 1) %>% group_by(short, mi_rna) %>% ggp
 +     ggtitle("equimolar - mirge2.0")
 ```
 
-    ## Error in eval(lhs, parent, parent): object 'equimolar_mirge' not found
+<img src="plasma_vs_equimolar_files/figure-markdown_github/unnamed-chunk-8-4.png" width="768" />
 
 -   From the miRNAs where the reference is the most expressed, what is the percentage of the isomiR expression from the total miRNA expression by protocol
 

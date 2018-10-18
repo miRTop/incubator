@@ -64,7 +64,7 @@ analysis = . %>%
 
 
 # equimolar
-gff = read_tsv("final/mirtop/expression_counts.tsv") %>% 
+gff = read_tsv("tools/bcbio/mirtop/expression_counts.tsv.gz") %>% 
     janitor::clean_names()
 
 counts = gff[,13:33] %>% 
@@ -72,6 +72,9 @@ counts = gff[,13:33] %>%
 dds = DGEList(counts)
 dds = calcNormFactors(dds)
 counts = cpm(dds, normalized.lib.sizes = FALSE)
+normalized = cbind(gff[,"read"],
+                   counts) %>% 
+    gather(sample, normalized,  -read)
 
 # get all sequence that are hsa annotated or not in mirx(remove potential crossmapping)
 clean_data = gff %>% 
@@ -82,9 +85,6 @@ gff %>%
     right_join(mirx_labeled, by = c("read" = "sequence")) %>% 
     filter(is.na(mi_rna)) %>% .[["id"]]
 
-normalized = cbind(gff[,"read"],
-                   counts) %>% 
-    gather(sample, normalized,  -read)
 
 # already missing
 setdiff(mirx_labeled$id,clean_data$mi_rna) %>% .[grepl("hsa-",.[])]
@@ -113,6 +113,63 @@ equimolar = parsed %>% filter(any_in_mirx == 1) %>% # 25665 (seq, mir rows), onl
 
 # We missed these families
 setdiff(mirx_labeled$id,equimolar$mi_rna) %>% .[grepl("hsa-",.[])]
+
+## mirge20 equimolar
+gff_mirge = read_tsv("tools/mirge20/mirtop/expression_counts.tsv.gz") %>% 
+    janitor::clean_names()
+srr_to_name = read_csv("samples_bcbio_prepare.csv") %>% 
+    mutate(samplename = tolower(samplename))
+
+counts = gff_mirge[,13:ncol(gff_mirge)] %>% 
+    as.matrix()
+dds = DGEList(counts)
+dds = calcNormFactors(dds)
+counts = cpm(dds, normalized.lib.sizes = FALSE)
+normalized = cbind(gff_mirge[,"read"],
+                   counts) %>% 
+    gather(sample, normalized,  -read)
+
+# get all sequence that are hsa annotated or not in mirx(remove potential crossmapping)
+clean_data = gff_mirge %>% 
+    left_join(mirx_labeled, by = c("read" = "sequence")) %>% # 31493 rows
+    distinct(read, mi_rna, .keep_all = TRUE) # 31443 rows, need to identify what sequences are lost here
+
+gff_mirge %>% 
+    right_join(mirx_labeled, by = c("read" = "sequence")) %>% 
+    filter(is.na(mi_rna)) %>% .[["id"]]
+
+# already missing
+setdiff(mirx_labeled$id,clean_data$mi_rna) %>% .[grepl("hsa-",.[])]
+
+# rank each sequence by each miRNA, and sample
+parsed = 
+    clean_data %>%
+    filter(mi_rna == id | is.na(id)) %>% # only allow families where annotation is equal to expected 31312 rows
+    annotate %>%
+    group_by(mi_rna, sample) %>% # remove miRNAs that have more than one spike in in the family
+    mutate(any_in_mirx = sum(grepl("hsa-", id))) %>% 
+    ungroup() # 31312 seq,mir rows
+
+# already missing
+setdiff(mirx_labeled$id,parsed$mi_rna) %>% .[grepl("hsa-",.[])]
+
+equimolar_mirge = parsed %>% filter(any_in_mirx == 1) %>% # 25665 (seq, mir rows), only allow families where the reference appears once
+    left_join(normalized, by = c("sample", "read")) %>% 
+    mutate(sample = gsub("_cut.*$", "", sample)) %>% 
+    left_join(srr_to_name, by = c("sample" = "samplename")) %>% 
+    mutate(sample = description) %>% 
+    select(-description) %>% 
+    mutate(lab=stringr::str_extract(sample,"lab[0-9]"),
+           protocol=stringr::str_remove_all(sample, "_.*$"),
+           index = as.numeric(as.factor(sample))) %>% 
+    unite("short", c("protocol", "lab", "index"), remove = FALSE) %>% 
+    select(-index) %>% 
+    distinct() %>% 
+    analysis
+
+# We missed these families
+setdiff(mirx_labeled$id,equimolar_mirge$mi_rna) %>% .[grepl("hsa-",.[])]
+
 
 # plasma
 gffp = read_tsv("../tewari/tools/bcbio/mirtop/expression_counts.tsv.gz") %>% 
@@ -145,4 +202,34 @@ plasma = gffp %>%
     distinct() %>% 
     analysis
 
-save(plasma, equimolar, file = "data/data_gff.rda")
+
+
+# custom
+gffc = read_tsv("custom_sequences/expression_counts.tsv.gz") %>% 
+    janitor::clean_names() %>%
+    select(-x4n_nex_tflex_lab7_synth_eq_clean) %>% 
+    filter(nchar(iso_snp_nt) < 5)
+counts = gffc[,13:ncol(gffc)] %>% 
+    as.matrix()
+dds = DGEList(counts)
+dds = calcNormFactors(dds)
+counts = cpm(dds, normalized.lib.sizes = FALSE)
+normalized = cbind(gffc[,"read"],
+                   counts) %>% 
+    gather(sample, normalized,  -read)
+
+custom = gffc %>% 
+    distinct(read, mi_rna, .keep_all = TRUE) %>%
+    mutate(id = mi_rna) %>% 
+    annotate %>% 
+    left_join(normalized, by = c("sample", "read")) %>% 
+    mutate(lab=stringr::str_extract(sample,"lab[0-9]"),
+           protocol=stringr::str_remove_all(sample, "_.*$"),
+           index = as.numeric(as.factor(sample))) %>% 
+    unite("short", c("protocol", "lab", "index"), remove = FALSE) %>% 
+    select(-index) %>% 
+    distinct() %>% 
+    analysis
+
+save(custom, plasma, equimolar, equimolar_mirge, file = "data/data_gff.rda")
+

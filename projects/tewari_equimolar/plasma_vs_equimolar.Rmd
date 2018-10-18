@@ -45,7 +45,7 @@ theme_update(
 ```
 
 
-```{r}
+```{r, cahce = FALSE}
 library(tidyverse)
 library(ggplot2)
 
