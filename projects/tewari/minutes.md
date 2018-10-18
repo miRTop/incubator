@@ -1,5 +1,31 @@
 project road map: https://github.com/miRTop/incubator/projects/2
 
+## 10-18-2018
+
+People: Lorena, Ioannis, Phillipe, Aris
+
+* We discuss the following changes to the format:
+
+  * Coordinates based on genome will have the strand together with the chr:start-end(strand). Please chime in if there is any specific format is widely used.
+  * The coordinates will be 1-based, inclusive at the start and the end.
+  * truncation at 5p will be designated as +N, instead of -N. template additions at 5p as -N, instead of +N. 
+
+* We showed how the other synthetic sequences inside the tewari samples produced similar isomirs.
+* We showed how mirge2.0 showed similar isomirs in the synthetic data discarting a pipeline specific issue.
+
+
+### Ready to-do points:
+
+* Lorena has to send FASTA file of all sequences to Ioannis to get the features that will be used for the machine learning analysis once we can classify sequence into reproducible or not.
+* Lorena to analyze other data set with spike-ints: working on this
+* Use cutoff tool from Phillipe group, discard low expressed reads
+
+### Next meeting 11-01-2018, 10am boston time.
+
+* Look into trimming events only to discuss about possible causes
+* create a scheme from RNA material to results and spot all possibles places where artifacts can be created. It would be good for the paper and to create new questions.
+
+
 ## 10-04-2018
 
 People: Lorena, Ioannis, Marc, Phillipe, Lauro, Gianvito
