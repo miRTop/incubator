@@ -190,7 +190,7 @@ equimolar %>%
     geom_bar() +
     facet_wrap(~iso, nrow = 4, scales = "free_y") +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-    ggtitle("equimolar")
+    ggtitle("equimolar - bcbio")
 
 plasma %>% 
     filter(ref_is_1 == 1) %>%
@@ -199,18 +199,25 @@ plasma %>%
     geom_bar() +
     facet_wrap(~iso, nrow = 4, scales = "free_y") +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
-    ggtitle("plasma")
-# 
-# ranked %>% 
-#         filter(ref_is_1 == 1, !grepl("snp", iso)) %>%
-#     group_by(sample) %>% 
-#     mutate(total_isomirs = n()) %>% 
-#     group_by(protocol, sample, iso, pct_cat) %>% 
-#     summarize(pct_sequences = n()/total_isomirs[1]) %>% 
-#     ggplot(aes(x = iso, color = pct_cat, y=pct_sequences)) +
-#     geom_boxplot() + 
-#     facet_wrap(~protocol) +
-#     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+    ggtitle("plasma - bcbio")
+
+custom %>% 
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("custom - razer3")
+
+equimolar_mirge %>% 
+    filter(ref_is_1 == 1) %>%
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - mirge2.0")
+
 ```
 
 
