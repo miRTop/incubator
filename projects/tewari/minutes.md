@@ -1,5 +1,33 @@
 project road map: https://github.com/miRTop/incubator/projects/2
 
+## 10-04-2018
+
+People: Lorena, Ioannis, Marc, Phillipe, Lauro, Gianvito
+
+* We discussed the equimolar data compared to plasma data to look at difference between distribution of what is the most expressed and what is the percentage of the rest of the sequences.
+
+https://github.com/miRTop/incubator/blob/master/projects/tewari_equimolar/plasma_vs_equimolar.md
+
+Ideas that came up:
+
+* maybe too much noise from miR like let7*
+* Ioannis confirmed that the equimolar sample may no be purified. 
+* Use cutoff tool from Phillipe group, discard low expressed reads
+* equimolar from miRGe tool
+* Ioannis mentioned extra sequences in the equimolar samples. One supplementary table from the paper shows which one are, so we can look at the variations of these ones.
+
+### Ready to-do points:
+
+* Lorena has to send FASTA file of all sequences to Ioannis to get the features that will be used for the machine learning analysis once we can classify sequence into reproducible or not.
+* Marc to contact tewari's paper authors: 
+  * whether they have equimolar and plasma samples or all is gone
+  * Is there information of the library size each lab did?
+* Lorena to analyze other data set with spike-ints: working on this
+
+### Next meeting 10-18-2018, 10am boston time.
+
+* create a scheme from RNA material to results and spot all possibles places where artifacts can be created. It would be good for the paper and create new questions.
+
 ## 09-20-2018
 
 People: Lorena, Arun, Ioannis, Marc, Phillipe
