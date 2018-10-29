@@ -76,9 +76,9 @@ When using only miRNAs that the top expressed sequence is the reference (miRXplo
 # Help
 
 * `add` means non-template additions
-* `t3` and `t5` means trimming events
+* `3p` and `5p` means trimming events
 * `snp` means nt changes
-* id for sequences are: `sequence` _ `snp` _ `add` _ `t3` _ `t5`
+* id for sequences are: `sequence` _ `snp` _ `add` _ `3p` _ `5p`
 * table is in `results/ranked.rda` object
 * `annotate_with_mirx_data.R` was used to load and parse the data according the previous filters.
 
@@ -211,6 +211,47 @@ custom %>%
 
 equimolar_mirge %>% 
     filter(ref_is_1 == 1) %>%
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - mirge2.0")
+
+```
+
+* From the miRNAs where the reference is the most expressed, what is the percentage of the isomiR expression from the total miRNA expression, only looking at iso_5p and iso_3p
+
+```{r}
+equimolar %>% 
+    filter(ref_is_1 == 1, iso_loss!="NaN+NaN", (iso=="++5p+" | iso=="+++3p")) %>%
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso_loss, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - bcbio")
+
+plasma %>% 
+    filter(ref_is_1 == 1, iso_loss!="NaN+NaN", (iso=="++5p+" | iso=="+++3p")) %>%
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("plasma - bcbio")
+
+custom %>% 
+    filter(iso_loss!="NaN+NaN", (iso=="++5p+" | iso=="+++3p"))
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("custom - razer3")
+
+equimolar_mirge %>% 
+    filter(ref_is_1 == 1, iso_loss!="NaN+NaN", (iso=="++5p+" | iso=="+++3p")) %>%
     group_by(short, mi_rna) %>% 
     ggplot(aes(x = short, fill = pct_cat)) +
     geom_bar() +

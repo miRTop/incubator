@@ -24,18 +24,22 @@ load("data/bcb.rda")
 # this code parse the columns to get the information as needed to plot
 annotate = . %>% 
     mutate(is_snp = ifelse(iso_snp != 0, "snp", ""),
-           is_add = ifelse(iso_add != 0, "add", ""),
-           is_5p = ifelse(iso_5p != 0, "t5", ""),
-           is_3p = ifelse(iso_3p != 0, "t3", "")) %>% 
-    mutate(is_loss_5p = ifelse(iso_5p != 0 & grepl("[a-z]+", iso_5p), "loss_t5", "NaN"),
-           is_loss_5p = ifelse(iso_5p != 0 & grepl("[A-Z]+", iso_5p), "gain_t5", is_loss_5p),
-           is_loss_3p = ifelse(iso_3p != 0 & grepl("[a-z]+", iso_3p), "loss_t3", "NaN"),
-           is_loss_3p = ifelse(iso_3p != 0 & grepl("[A-Z]+", iso_3p), "gain_t3", is_loss_3p)) %>%
+           is_add = ifelse(iso_add != 0, "add3p", ""),
+           is_5p = ifelse(iso_5p != 0, "shift5p", ""),
+           is_3p = ifelse(iso_3p != 0, "shift3p", "")) %>% 
+    mutate(is_loss_5p = ifelse(iso_5p < 0, "loss_5p", "NaN"),
+           is_loss_5p = ifelse(iso_5p > 0, "gain_5p", is_loss_5p),
+           is_loss_3p = ifelse(iso_3p < 0, "loss_3p", "NaN"),
+           is_loss_3p = ifelse(iso_3p > 0, "gain_3p", is_loss_3p)) %>%
+    unite("iso_shift_nt", iso_5p, iso_3p, sep = "+", remove = FALSE) %>%
     unite("iso_nt", iso_snp, iso_add, iso_5p, iso_3p, sep = "_") %>%
-    unite("iso", is_snp, is_add, is_5p, is_3p, sep = ".") %>%
-    unite("iso_loss", is_loss_5p, is_loss_3p, sep = ".") %>%
+    unite("iso", is_snp, is_add, is_5p, is_3p, sep = "&") %>%
+    mutate(iso = ifelse(iso=="&&&", "reference",iso)) %>% 
+    mutate(iso = stringr::str_replace_all(iso, "&+", "&")) %>% 
+    unite("iso_shift", is_loss_5p, is_loss_3p, sep = "+") %>%
+    mutate(iso = ifelse(iso_shift=="&", "no-loss",iso)) %>% 
     select(-uid, -variant, -iso_5p_nt:-iso_snp_nt ) %>% 
-    gather(sample, value, -mi_rna, -iso, -iso_nt, -iso_loss, -id, -read) %>% 
+    gather(sample, value, -mi_rna, -iso, -iso_nt, -iso_shift, -iso_shift_nt, -id, -read) %>% 
     ungroup
 
 # quantify the times sequences are detected and % of importance
@@ -52,7 +56,7 @@ analysis = . %>%
     group_by(mi_rna, iso) %>% 
     mutate(reproducible_protocol = length(unique(protocol))) %>%
     group_by(mi_rna, sample) %>%
-    mutate(ref_is_1 = length(mi_rna[rank == 1 & iso == "..."])) %>% 
+    mutate(ref_is_1 = length(mi_rna[rank == 1 & iso == "reference"])) %>% 
     ungroup %>% 
     mutate(pct_cat = cut(pct,
                           breaks = c(-1, 0.1, 1, 5, 10, 20, 50, 101),
@@ -61,7 +65,6 @@ analysis = . %>%
                               breaks = c(-1, 1, 10, 100, 1000, 1e30),
                               labels = c("<1", "1-10", "10-100", "100-1000", ">1000"))) %>% 
     ungroup()
-
 
 # equimolar
 gff = read_tsv("tools/bcbio/mirtop/expression_counts.tsv.gz") %>% 
