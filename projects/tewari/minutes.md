@@ -1,5 +1,26 @@
 project road map: https://github.com/miRTop/incubator/projects/2
 
+## 11-01-2018
+
+People: Lorena, Phillipe, Ioannis, Arun, Marc
+
+* We discuss:
+
+  * iso_add should be iso_add3p and we should have iso_add5p and remove the sign of that and only add the number of nts involved in the variations: `iso_add3p:2`.
+  * examples in paper table should be consistent and show one example for each attribute
+  * isomiR shift in different databases corroborating the high counts of some isomirs that are mainly truncation events and shouldn't be there
+  * This papers started to look at isomiR consistency beside miRNAs (kind of similar what we are doing but I think we are going further) https://www.biorxiv.org/content/early/2018/10/30/445437?%3Fcollection=
+
+### Ready to-do points:
+
+* Update paper according discussed points.
+* Lorena has to send FASTA file of all sequences to Ioannis to get the features that will be used for the machine learning analysis once we can classify sequence into reproducible or not.
+* Look into NTs involved in the truncation events.
+* Ioannis may look at ERCC spikeins ends to see if we see the same.
+
+
+### Next meeting 11-15-2018, 10am EST time, 4pm GMT+1 time.
+
 ## 10-18-2018
 
 People: Lorena, Ioannis, Phillipe, Aris
