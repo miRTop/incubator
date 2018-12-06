@@ -1,0 +1,368 @@
+---
+title: "Comparison of isomiR importance"
+author: "Lorena Pantano"
+date: "`r Sys.Date()`"
+output:
+    md_document:
+        variant: markdown_github
+        toc: false
+params:
+    data: "data/data_gff.rda"
+    outputDir: "."
+---
+
+```{r aes, results='hide'}
+library(knitr)
+library(ggplot2)
+library(pheatmap)
+
+# Set seed for reproducibility
+set.seed(1454944673L)
+
+opts_chunk[["set"]](
+    autodep = TRUE,
+    bootstrap.show.code = FALSE,
+    cache = TRUE,
+    cache.lazy = TRUE,
+    dev = c("png", "pdf"),
+    error = TRUE,
+    fig.height = 6,
+    fig.retina = 2L,
+    fig.width = 8,
+    highlight = TRUE,
+    message = FALSE,
+    prompt = TRUE,
+    # formatR required for tidy code
+    tidy = TRUE,
+    warning = FALSE,
+    results = 'asis')
+
+theme_set(
+    theme_light(base_size = 11L))
+theme_update(
+    legend.justification = "center",
+    legend.position = "bottom")
+```
+
+# Data analyzed
+
+* equimolar Tewari: bcbio, miRge and razer3
+* custom equimolar Tewari: razer3
+* custom Van Dijk: razer3
+* plasma: bcbio,  miRge
+
+## Filtering applied:
+
+* Only using sequences that map to miRNAs that are in the miRXplore sample or spike-ins defined by the project 
+* miRNAs that didn't contain one sequence being inside the miRXplore or spike-ins space  were removed
+* Only sequences that mapped once to a reference were kept
+
+# Conclusion
+
+The majority of miRNAs had the reference sequences as top expressed.
+
+The majority of isomiRs correspon to trimming events.
+
+The majority are losses/truncation.
+
+4N generetes more trimming events.
+
+# Results
+
+```{r, cahce = FALSE}
+library(tidyverse)
+library(ggplot2)
+
+load(params$data)
+```
+
+* From the miRNAs where the reference is the most expressed, what is the percentage of the isomiR expression from the total miRNA expression
+
+```{r}
+equimolar %>% 
+    filter(ref_is_1 == 1) %>%
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - bcbio")
+
+equimolar_mirge %>% 
+    filter(ref_is_1 == 1) %>%
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - mirge2.0")
+
+equimolar_razer3 %>% 
+    filter(ref_is_1 == 1) %>%
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - razer3")
+
+custom %>% 
+    filter(ref_is_1 == 1) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("custom - razer3")
+
+vandijk %>% 
+    filter(ref_is_1 == 1) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("VanDijk - razer3")
+
+
+plasma %>% 
+    filter(ref_is_1 == 1) %>%
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("plasma - bcbio")
+
+```
+
+Same thing but using seqThreshold to keep sequences.
+
+```{r}
+equimolar %>% 
+    filter(ref_is_1 == 1, value > threshold) %>%
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - bcbio")
+
+equimolar_mirge %>% 
+    filter(ref_is_1 == 1, value > threshold) %>%
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - mirge2.0")
+
+equimolar_razer3 %>% 
+    filter(ref_is_1 == 1, value > threshold) %>%
+    group_by(short, mi_rna) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - razer3")
+
+custom %>% 
+    filter(ref_is_1 == 1, value > threshold) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("custom - razer3")
+
+vandijk %>% 
+    filter(ref_is_1 == 1, value > threshold) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("VanDijk - razer3")
+
+dsrg %>% 
+    filter(ref_is_1 == 1, value > threshold) %>% 
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("dsrg - bcbio")
+
+plasma %>% 
+    filter(ref_is_1 == 1, value > threshold) %>%
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("plasma - bcbio")
+
+```
+
+
+Same thing but normalizing by number of total sequences detected in each sample.
+
+```{r}
+prepare =  . %>% filter(ref_is_1 == 1, value > threshold) %>%
+    dplyr::count(short, pct_cat, iso) %>% 
+    group_by(short) %>% 
+    mutate(pct_total = n/sum(n)*100)
+
+equimolar %>% 
+    prepare() %>% 
+    ggplot(aes(x = short, fill = pct_cat, y = pct_total)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - bcbio")
+
+equimolar_mirge %>% 
+    prepare() %>% 
+    ggplot(aes(x = short, fill = pct_cat, y = pct_total)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - mirge2.0")
+
+equimolar_razer3 %>% 
+    prepare() %>% 
+    ggplot(aes(x = short, fill = pct_cat, y = pct_total)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - razer3")
+
+custom %>% 
+    prepare() %>% 
+    ggplot(aes(x = short, fill = pct_cat, y = pct_total)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("custom - razer3")
+
+vandijk %>% 
+    prepare() %>% 
+    ggplot(aes(x = short, fill = pct_cat, y = pct_total)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("VanDijk - razer3")
+
+dsrg %>% 
+    prepare() %>% 
+    ggplot(aes(x = short, fill = pct_cat, y = pct_total)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("dsrg - bcbio")
+
+plasma %>% 
+    prepare() %>% 
+    ggplot(aes(x = short, fill = pct_cat, y = pct_total)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("plasma - bcbio")
+
+```
+
+Detected by multiple labs and protocols
+
+```{r}
+
+prepare_lab = . %>% filter(ref_is_1 == 1, normalized > 1) %>%
+    mutate(iso=gsub("&", " ", iso)) %>% 
+    group_by(read) %>% 
+    mutate(reproducible_protocol = length(unique(protocol)),
+           reproducible_lab = as.factor(length(unique(lab)))) %>% 
+    group_by(iso) %>% 
+    dplyr::count(reproducible_lab, pct_cat, iso) %>% 
+    mutate(pct_total = n/sum(n)*100)
+
+prepare_protocol = . %>% filter(ref_is_1 == 1, normalized > 1) %>%
+    mutate(iso=gsub("&", " ", iso)) %>% 
+    group_by(read) %>% 
+    mutate(reproducible_protocol = paste(unique(protocol), collapse = " "),
+           reproducible_lab = as.factor(length(unique(lab)))) %>% 
+    group_by(iso) %>% 
+    dplyr::count(reproducible_protocol, pct_cat, iso) %>% 
+    mutate(pct_total = n/sum(n)*100)
+
+equimolar %>% 
+    prepare_lab %>% 
+    ggplot(aes(x = reproducible_lab, y = pct_total, fill = pct_cat)) + 
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - bcbio")
+
+equimolar %>% 
+    prepare_protocol %>% 
+    ggplot(aes(x = reproducible_protocol, y = pct_total, fill = pct_cat)) + 
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - bcbio")
+```
+
+* From the miRNAs where the reference is the most expressed, what is the percentage of the isomiR expression from the total miRNA expression, only looking at iso_5p and iso_3p
+
+```{r}
+equimolar %>% 
+    filter(ref_is_1 == 1, iso_shift_nt!="0", (iso=="shift5p" | iso=="shift3p")) %>%  .[["mi_rna"]] %>% unique %>% length
+
+equimolar %>% 
+    filter(ref_is_1 == 1, iso_shift_nt!="0", (iso=="shift5p" | iso=="shift3p")) %>%
+    dplyr::count(mi_rna, short) %>% 
+    ggplot(aes(short,n)) +
+    geom_jitter() +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+equimolar %>% 
+    filter(ref_is_1 == 1, iso_shift_nt!="0", (iso=="shift5p" | iso=="shift3p"),
+           nchar(iso_detail)<7, iso_shift_nt  %in% c("-1 0", "0 -1", "1 0", "0 1")) %>%
+    mutate(nt = gsub("[_0]", "", iso_detail)) %>% 
+    ggplot(aes(x = short, fill = nt)) +
+    geom_bar() +
+    scale_fill_discrete() +
+    facet_wrap(~iso_shift_nt, nrow = 4) +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+
+equimolar %>% 
+    filter(ref_is_1 == 1, iso_shift_nt!="0", (iso=="shift5p" | iso=="shift3p")) %>%
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso_shift_nt, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - bcbio")
+
+plasma %>% 
+    filter(ref_is_1 == 1, iso_shift_nt!="0", (iso=="shift5p" | iso=="shift3p")) %>%
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso_shift_nt, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("plasma - bcbio")
+
+custom %>% 
+    filter(ref_is_1 == 1, iso_shift_nt!="0", (iso=="shift5p" | iso=="shift3p")) %>%
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso_shift_nt, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("custom - razer3")
+
+vandijk %>% 
+    filter(ref_is_1 == 1, iso_shift_nt!="0", (iso=="shift5p" | iso=="shift3p")) %>%
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso_shift_nt, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("VanDijk - razer3")
+
+equimolar_mirge %>% 
+    filter(ref_is_1 == 1, iso_shift_nt!="0", (iso=="shift5p" | iso=="shift3p")) %>%
+    ggplot(aes(x = short, fill = pct_cat)) +
+    geom_bar() +
+    facet_wrap(~iso_shift_nt, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    ggtitle("equimolar - mirge2.0")
+
+```
+
