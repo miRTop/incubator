@@ -1,7 +1,7 @@
 library(rdrop2)
 token <- readRDS("~/.droptoken.rds")
 d = drop_acc(dtoken = token)
-dropdir = "mirtop/synthetic/data"
+dropdir = "mirtop/synthetic"
 
 library(r2dropSmart)
 sync(".", dropdir, 

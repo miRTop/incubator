@@ -1,3 +1,12 @@
+library(tidyverse)
+library(ggplot2)
+library(pheatmap)
+theme_set(
+    theme_light(base_size = 11L))
+theme_update(
+    legend.justification = "center",
+    legend.position = "bottom")
+
 prepare =  . %>% filter(ref_is_1 == 1, nchar(iso_detail)<7) %>%
     dplyr::count(protocol, sample, pct_cat, iso_shift_nt, iso, iso_detail) %>% 
     group_by(protocol) %>% 

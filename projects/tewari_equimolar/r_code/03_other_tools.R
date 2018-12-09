@@ -7,8 +7,6 @@ theme_update(
     legend.justification = "center",
     legend.position = "bottom")
 
-load("data/data_gff.rda")
-
 
 prepare =  . %>% filter(ref_is_1 == 1) %>%
     dplyr::count(protocol, sample, pct_cat, iso) %>% 

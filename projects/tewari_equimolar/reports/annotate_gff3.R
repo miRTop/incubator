@@ -110,29 +110,15 @@ gff = read_tsv("tools/bcbio/mirtop/expression_counts.tsv.gz") %>%
 
 normalized = norm(gff, "data/th_gff.rda")
 # get all sequence that are hsa annotated or not in mirx(remove potential crossmapping)
-clean_data = gff %>% 
-    left_join(mirx_labeled, by = c("read" = "sequence")) # 31493 rows
-    # distinct(read, mi_rna, .keep_all = TRUE) # 31443 rows, need to identify what sequences are lost here
-# gff %>% 
-#     right_join(mirx_labeled, by = c("read" = "sequence")) %>% 
-#     filter(is.na(mi_rna)) %>% .[["id"]]
-# 
-# # already missing
-# setdiff(mirx_labeled$id,clean_data$mi_rna) %>% .[grepl("hsa-",.[])]
-
-# rank each sequence by each miRNA, and sample
-parsed = 
-    clean_data %>%
-    filter(mi_rna == id | is.na(id)) %>% # only allow families where annotation is equal to expected 31312 rows
+equimolar = gff %>% 
+    left_join(mirx_labeled, by = c("read" = "sequence"))  %>% 
+    filter(mi_rna == id | is.na(id)) %>% # only allow families where annotation is equal to expected
     annotate %>%
     group_by(mi_rna, sample) %>% # remove miRNAs that have more than one spike in in the family
-    mutate(any_in_mirx = sum(grepl("hsa-", id))) %>% 
-    ungroup() # 31312 seq,mir rows
-
-# already missing
-# setdiff(mirx_labeled$id,parsed$mi_rna) %>% .[grepl("hsa-",.[])]
-
-equimolar = parsed %>% filter(any_in_mirx == 1) %>% # 25665 (seq, mir rows), only allow families where the reference appears once
+    mutate(any_in_mirx = sum(grepl("hsa-", id)),
+           mirx_counts = length(unique(id[!is.na(id)]))) %>% 
+    ungroup() %>% 
+    filter(any_in_mirx == 1, mirx_counts == 1) %>%  # where the reference appears once
     left_join(normalized, by = c("sample", "read")) %>% 
     mutate(lab=stringr::str_extract(sample,"lab[0-9]"),
            protocol=stringr::str_remove_all(sample, "_.*$"),
@@ -148,36 +134,20 @@ equimolar = parsed %>% filter(any_in_mirx == 1) %>% # 25665 (seq, mir rows), onl
 ## mirge20 equimolar
 gff_mirge = read_tsv("tools/mirge20/mirtop/expression_counts.tsv.gz") %>% 
     janitor::clean_names()
-srr_to_name = read_csv("samples_bcbio_prepare.csv") %>% 
+srr_to_name = read_csv("config/samples_bcbio_prepare.csv") %>% 
     mutate(samplename = tolower(samplename))
 
 normalized = norm(gff_mirge, "data/th_gffmirge.rda")
 
-# get all sequence that are hsa annotated or not in mirx(remove potential crossmapping)
-clean_data = gff_mirge %>% 
-    left_join(mirx_labeled, by = c("read" = "sequence")) # 31493 rows
-   # distinct(read, mi_rna, .keep_all = TRUE) # 31443 rows, need to identify what sequences are lost here
-
-# gff_mirge %>% 
-#     right_join(mirx_labeled, by = c("read" = "sequence")) %>% 
-#     filter(is.na(mi_rna)) %>% .[["id"]]
-
-# already missing
-# setdiff(mirx_labeled$id,clean_data$mi_rna) %>% .[grepl("hsa-",.[])]
-
-# rank each sequence by each miRNA, and sample
-parsed = 
-    clean_data %>%
-    filter(mi_rna == id | is.na(id)) %>% # only allow families where annotation is equal to expected 31312 rows
+equimolar_mirge = gff_mirge %>% 
+    left_join(mirx_labeled, by = c("read" = "sequence")) %>% 
+    filter(mi_rna == id | is.na(id)) %>% # only allow families where annotation is equal to expected 
     annotate %>%
     group_by(mi_rna, sample) %>% # remove miRNAs that have more than one spike in in the family
-    mutate(any_in_mirx = sum(grepl("hsa-", id))) %>% 
-    ungroup() # 31312 seq,mir rows
-
-# already missing
-# setdiff(mirx_labeled$id,parsed$mi_rna) %>% .[grepl("hsa-",.[])]
-
-equimolar_mirge = parsed %>% filter(any_in_mirx == 1) %>% # 25665 (seq, mir rows), only allow families where the reference appears once
+    mutate(any_in_mirx = sum(grepl("hsa-", id)),
+       mirx_counts = length(unique(id[!is.na(id)]))) %>% 
+    ungroup() %>% 
+    filter(any_in_mirx == 1, mirx_counts == 1) %>% 
     left_join(normalized, by = c("sample", "read")) %>% 
     mutate(sample = gsub("_cut.*$", "", sample)) %>% 
     left_join(srr_to_name, by = c("sample" = "samplename")) %>% 
@@ -191,10 +161,6 @@ equimolar_mirge = parsed %>% filter(any_in_mirx == 1) %>% # 25665 (seq, mir rows
     distinct() %>% 
     analysis
 
-# We missed these families
-# setdiff(mirx_labeled$id,equimolar_mirge$mi_rna) %>% .[grepl("hsa-",.[])]
-
-
 # equimolar razer3
 gffr = read_tsv("tools/razer3/expression_counts.tsv.gz") %>% 
     janitor::clean_names() %>% 
@@ -205,16 +171,21 @@ normalized = norm(gffr, "data/th_gffr.rda")
 # get all sequence that are hsa annotated or not in mirx(remove potential crossmapping)
 equimolar_razer3 = gffr %>% 
     # distinct(read, mi_rna, .keep_all = TRUE) %>%
-    mutate(id = mi_rna) %>% 
-    annotate %>%
+    left_join(mirx_labeled, by = c("read" = "sequence")) %>% 
+    annotate %>% # fix naming
+    group_by(mi_rna, sample) %>% # remove miRNAs that have more than one spike in in the family or not the correct one
+    mutate(any_in_mirx = sum(grepl("hsa-", id)),
+           mirx_counts = length(unique(id[!is.na(id)]))) %>% 
+    ungroup() %>% 
+    filter(any_in_mirx == 1, mirx_counts == 1) %>% 
     inner_join(normalized, by = c("sample", "read")) %>% 
-    mutate(lab=stringr::str_extract(sample,"lab[0-9]"),
+    mutate(lab=stringr::str_extract(sample,"lab[0-9]"), # fix metadata
            protocol=stringr::str_remove_all(sample, "_.*$"),
            index = as.numeric(as.factor(sample))) %>% 
     unite("short", c("protocol", "lab", "index"), remove = FALSE) %>% 
     select(-index) %>% 
     distinct() %>% 
-    analysis
+    analysis # categorize isomirs
 
 
 # dsrg
@@ -234,9 +205,10 @@ dsrg = gffdsrg %>%
     filter(mi_rna == id | is.na(id)) %>% 
     annotate %>%
     group_by(mi_rna, sample) %>% 
-    mutate(any_in_mirx = sum(grepl("hsa-", id))) %>% 
-    filter(any_in_mirx == 1) %>% 
+    mutate(any_in_mirx = sum(grepl("hsa-", id)),
+           mirx_counts = length(unique(id[!is.na(id)]))) %>% 
     ungroup() %>% 
+    filter(any_in_mirx == 1, mirx_counts == 1) %>% 
     mutate(sample = gsub("mur_d", "murd", sample)) %>% 
     inner_join(normalized, by = c("sample", "read")) %>% 
     separate(sample, remove = F, into = c("protocol", "source", "lab", "index", "snumber")) %>% 

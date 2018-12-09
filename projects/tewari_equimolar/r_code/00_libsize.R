@@ -7,7 +7,6 @@ theme_update(
     legend.justification = "center",
     legend.position = "bottom")
 
-load("data/data_gff.rda")
 
 equimolar_razer3 %>% 
     group_by(sample, protocol) %>% 

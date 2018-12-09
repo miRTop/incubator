@@ -7,8 +7,6 @@ theme_update(
     legend.justification = "center",
     legend.position = "bottom")
 
-load("data/data_gff.rda")
-
 prepare =  . %>% filter(ref_is_1 == 1) %>%
     dplyr::count(protocol, sample, pct_cat, iso_shift_nt) %>% 
     group_by(protocol) %>% 
@@ -27,7 +25,7 @@ equimolar_razer3 %>%
     ggtitle("shift type") +
     ylab("% of isomiRs with shifting events") +
     scale_color_manual(values = RColorBrewer::brewer.pal(7, "Dark2")) +
-    ggsave("results/05_shift_type/04_shift_type.pdf", height = 7)
+    ggsave("results/05_shift_type/05_shift_type.pdf", height = 7)
 
 
 equimolar_razer3 %>% 
@@ -43,7 +41,7 @@ equimolar_razer3 %>%
     geom_bar(stat="identity") +
     ylab("% of miRNAs with shift events") +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))+
-    ggsave("results/05_shift_type/04_shift_mirna_pct.pdf", width = 7)
+    ggsave("results/05_shift_type/05_shift_mirna_pct.pdf", width = 7)
 
 
 equimolar_razer3 %>% 
@@ -60,4 +58,4 @@ equimolar_razer3 %>%
     geom_bar(stat="identity") +
     ylab("% of miRNAs with shift events") +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))+
-    ggsave("results/05_shift_type/04_shift1_mirna_pct.pdf", width = 7)
+    ggsave("results/05_shift_type/05_shift1_mirna_pct.pdf", width = 7)

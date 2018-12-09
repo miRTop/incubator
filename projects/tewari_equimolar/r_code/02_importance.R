@@ -7,8 +7,6 @@ theme_update(
     legend.justification = "center",
     legend.position = "bottom")
 
-load("data/data_gff.rda")
-
 
 prepare =  . %>% filter(ref_is_1 == 1) %>%
     dplyr::count(sample, pct_cat, iso, protocol) %>% 
@@ -27,6 +25,20 @@ equimolar_razer3 %>%
     ggtitle("isomiRs importance by type") +
     ylab("PCT") +
     ggsave("results/02_importance/02_importance.pdf", height = 9)
+
+
+
+equimolar_razer3 %>% 
+    filter(total > 1000) %>% 
+    prepare() %>% 
+    ggplot(aes(x = sample, fill = pct_cat, y = pct_total)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    scale_fill_manual("IMPORTANCE", values = RColorBrewer::brewer.pal(7, "Dark2")) +
+    ggtitle("isomiRs importance by type (miRNAs > 1000 counts)") +
+    ylab("PCT") +
+    ggsave("results/02_importance/02_importance_1000.pdf", height = 9)
 
 
 
@@ -63,6 +75,20 @@ equimolar_razer3 %>%
     ylab("PCT") +
     ggtitle("isomiRs importance by type with pct > 1") +
     ggsave("results/02_importance/02_importance_pct_g1.pdf", height = 9)
+
+equimolar_razer3 %>% 
+    filter(total > 1000, pct > 1) %>% 
+    prepare() %>% 
+    ggplot(aes(x = sample, fill = pct_cat, y = pct_total)) +
+    geom_bar(stat = "identity") +
+    facet_wrap(~iso, nrow = 4, scales = "free_y") +
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
+    scale_fill_manual("IMPORTANCE", values = RColorBrewer::brewer.pal(7, "Dark2")[3:7]) +
+    ggtitle("isomiRs importance by type (miRNAs > 1000 counts)") +
+    ylab("PCT") +
+    ggsave("results/02_importance/02_importance_1000_pct_g1.pdf", height = 9)
+
+
 
 equimolar_razer3 %>% 
     filter(pct > 1) %>% 
