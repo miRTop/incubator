@@ -1,5 +1,21 @@
 project road map: https://github.com/miRTop/incubator/projects/2
 
+## 01-17-2019
+
+People: Lorena, Marc, Carrie
+
+* We discussed:
+
+ * experimental design for isomir accuracy with NGS as posted here:https://docs.google.com/document/d/1XyKjQJ2R6qdES12uDK-5ffA43xgEHmcZaZ_6Vr6yWFM/edit
+ * organize the  results  during february to split tasks in the future
+ * Carrie mentioned she is talking  to the company who provides  the miRXplore reference to get them to give individual spikeins or proof of purification
+
+* To be done:
+
+ * pilot and extended version of the isomiR spikeins (Lorena and Ioannis)
+ * Carrie will ask about fragment analyzer and see if it can be used as check point of quality
+ * Lorena will talk to the core sequencing to organize the fragment analyzer as quality control as well
+
 ## 11-01-2018
 
 People: Lorena, Phillipe, Ioannis, Arun, Marc
@@ -29,7 +45,7 @@ People: Lorena, Ioannis, Phillipe, Aris
 
   * Coordinates based on genome will have the strand together with the chr:start-end(strand). Please chime in if there is any specific format is widely used.
   * The coordinates will be 1-based, inclusive at the start and the end.
-  * truncation at 5p will be designated as +N, instead of -N. template additions at 5p as -N, instead of +N. 
+  * truncation at 5p will be designated as +N, instead of -N. template additions at 5p as -N, instead of +N.
 
 * We showed how the other synthetic sequences inside the tewari samples produced similar isomirs.
 * We showed how mirge2.0 showed similar isomirs in the synthetic data discarting a pipeline specific issue.
@@ -58,7 +74,7 @@ https://github.com/miRTop/incubator/blob/master/projects/tewari_equimolar/plasma
 Ideas that came up:
 
 * maybe too much noise from miR like let7*
-* Ioannis confirmed that the equimolar sample may no be purified. 
+* Ioannis confirmed that the equimolar sample may no be purified.
 * Use cutoff tool from Phillipe group, discard low expressed reads
 * equimolar from miRGe tool
 * Ioannis mentioned extra sequences in the equimolar samples. One supplementary table from the paper shows which one are, so we can look at the variations of these ones.
@@ -66,7 +82,7 @@ Ideas that came up:
 ### Ready to-do points:
 
 * Lorena has to send FASTA file of all sequences to Ioannis to get the features that will be used for the machine learning analysis once we can classify sequence into reproducible or not.
-* Marc to contact tewari's paper authors: 
+* Marc to contact tewari's paper authors:
   * whether they have equimolar and plasma samples or all is gone
   * Is there information of the library size each lab did?
 * Lorena to analyze other data set with spike-ints: working on this
@@ -134,15 +150,15 @@ We presented the data and results until now and discussed the following points:
 The metric is called IDR (irreproducible discovery rate) and you can find it here:
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3431496/
- 
+
 http://cran.r-project.org/web/packages/idr/index.htm
 
 These are the papers for the bias:
- 
+
 http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0126049
- 
+
 https://www.ncbi.nlm.nih.gov/pubmed/22647250
- 
+
 
 ### Questions for next meeting
 
@@ -162,4 +178,3 @@ features to look into that:
 * Ligation
 * Size selection
 * Steps in protocols
-
