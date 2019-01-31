@@ -1,9 +1,10 @@
 
-* Dispersion by lab for each tool and protocol and isomir
-  * x = tools
-  * colors = pct_cat
-  * facet = isomirs
+* Dispersion needs to be cleaned by trusted miRNAs
 
+# 2019-Jan-31
+
+* Prepare draft in google docs
+* Update dispersion figures as measure of reproducibility
 
 # 20018-Sept-10
 
