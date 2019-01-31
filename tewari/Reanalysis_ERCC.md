@@ -1,3 +1,7 @@
+## Draft
+
+https://docs.google.com/document/d/1VQN_7j0omnzKNc566jfe39stZVhXsfG2feNEkaJ4cFc/edit
+
 ## Goals
 
 * Optimize GFF format definition and usability
