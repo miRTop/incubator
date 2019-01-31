@@ -9,10 +9,11 @@ theme_set(theme_bw(base_size = 14))
 meta_pilot = read_csv("meta_pilot.csv")
 
 complete = read_tsv("tools/bcbio/mirtop/expression_counts.tsv.gz")
-
 dds = DGEList(complete[, 13:ncol(complete)])
 dds = calcNormFactors(dds)
 counts = cpm(dds, normalized.lib.sizes = TRUE)
+
+
 
 pilot = cbind(complete[, 1], counts) %>%
     gather(sample, value, -UID) %>%

@@ -36,13 +36,16 @@ dds$samples %>% rownames_to_column("sample") %>%
 
 add_col = "iso_add"
 snp_col = "iso_snp"
-lapply(2:3, function(x){
-    filter(pilot, value >= x) %>%
-        summarize_isomir %>%
-        mutate(min_counts = x)
-}) %>% bind_rows() %>%
+
+pilot %>%
+    summarize_isomir %>%
     plot_summarize_isomir +
-    ggsave("figures/replicates/srnabench.png", width = 9, height = 9)
+    ggsave("figures/replicates/srnabench.png", width = 11, height = 9)
+
+pilot %>%
+    summarize_isomirs_by_lab() %>%
+    plot_summarize_isomir_by_lab() +
+    ggsave("figures/labs/srnabench.png", width = 11, height = 9)
 
 
 pilot %>% expression_isomirs_by_lab_protocol_isomir %>%

@@ -1,6 +1,6 @@
 ## Goals
 
-* Optimize GFF format definiation and usability
+* Optimize GFF format definition and usability
 * Detect methodology accuracy due to tools and some experimental step in the protocols.
 
 

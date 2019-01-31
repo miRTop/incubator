@@ -35,13 +35,15 @@ dds$samples %>% rownames_to_column("sample") %>%
     facet_grid(lab~lib_method_simple) +
     ggsave("figures/replicates/isomirsea_libsize.png", width = 7, height = 9)
 
-lapply(2:3, function(x){
-    filter(pilot, value >= x) %>%
-        summarize_isomir %>%
-        mutate(min_counts = x)
-}) %>% bind_rows() %>%
+pilot %>%
+    summarize_isomir %>%
     plot_summarize_isomir +
-    ggsave("figures/replicates/isomirsea.png", width = 9, height = 9)
+    ggsave("figures/replicates/isomirsea.png", width = 11, height = 9)
+
+pilot %>%
+    summarize_isomirs_by_lab() %>%
+    plot_summarize_isomir_by_lab() +
+    ggsave("figures/labs/isomirsea.png", width = 11, height = 9)
 
 
 pilot %>% expression_isomirs_by_lab_protocol_isomir %>%
