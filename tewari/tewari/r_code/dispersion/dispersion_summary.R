@@ -53,6 +53,7 @@ separate(df, group, into = c("lab", "protocol"), sep = " ") %>%
           axis.text.x = element_text(angle=90, vjust = 0.5, hjust = 1)) +
     ggsave("figures/dispersion/specific_isomir_lab_tool_protocol.pdf")
 
+# check number of isomiRs over importance rate
 separate(df, group, into = c("lab", "protocol"), sep = " ") %>% 
     filter( n > 20, iso  %in% lookat) %>% 
     unite(protocol, tool, col = "gg_group", remove = F) %>% 
@@ -63,6 +64,8 @@ separate(df, group, into = c("lab", "protocol"), sep = " ") %>%
     theme(axis.text = element_text(size = 9),
           strip.text = element_text(size = 9),
           axis.text.x = element_text(angle=90, vjust = 0.5, hjust = 1))
+
+# check expression of isomiRs over importance rate
 separate(df, group, into = c("lab", "protocol"), sep = " ") %>% 
     filter( n > 20, iso  %in% lookat) %>% 
     unite(protocol, tool, col = "gg_group", remove = F) %>% 

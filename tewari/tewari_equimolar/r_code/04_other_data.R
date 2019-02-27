@@ -21,7 +21,7 @@ bind_rows(
         filter(pct > 1) %>% 
         prepare() %>% 
         filter(iso  %in% c("shift5p", "shift3p", "snp")) %>% 
-        mutate(tool = "tewari"),
+        mutate(tool = "tewari synthetic"),
     
     vandijk  %>% 
         filter(pct > 1) %>% 
@@ -43,7 +43,7 @@ bind_rows(
     ylab("PCT") +
     scale_color_manual("IMPORTANCE",
                        values = RColorBrewer::brewer.pal(7, "Dark2")[3:7]) +
-    ggsave("results/04_other_data/04_other_data_pct_g1.pdf", height = 9)
+    ggsave("results/04_other_data/04_other_data_pct_g1.pdf", height = 7)
 
 
 bind_rows(
