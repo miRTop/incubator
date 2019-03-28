@@ -1,5 +1,20 @@
 project road map: https://github.com/miRTop/incubator/projects/2
 
+## 03-28-2019
+
+People: Lorena, Marc, Carrie, Ioannis
+
+Discussion topics:
+
+* we need another source to confirm the synthetic data. If we saw the same noise, it is difficult to follow the same path
+* other option is to have multiple replicates of two different tissue and test null hypothesis inside each group and between them to model the technical noise (we need to find money for that).
+
+Action points:
+
+* Ioannis to continue with the synthetic and illumina collaboration
+* Lorena to find experiemental design for multiple replicates
+* Look at new version of biorxiv from carrie's study
+
 ## 01-17-2019
 
 People: Lorena, Marc, Carrie
