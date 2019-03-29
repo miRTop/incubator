@@ -1,5 +1,6 @@
 library(tidyverse)
 library(seqinr)
+setwd(here::here()) # set working directory in project folder
 source("r_code/seqThreshold.R")
 mirbase = read.fasta(file = "data/mature.fa.gz", as.string = TRUE, forceDNAtolower = FALSE)
 
@@ -111,14 +112,14 @@ gff = read_tsv("tools/bcbio/mirtop/expression_counts.tsv.gz") %>%
 normalized = norm(gff, "data/th_gff.rda")
 # get all sequence that are hsa annotated or not in mirx(remove potential crossmapping)
 equimolar = gff %>% 
-    left_join(mirx_labeled, by = c("read" = "sequence"))  %>% 
+    left_join(mirx_labeled, by = c("read" = "sequence"))  %>% # mirx_labeled defined in line 14, it contains the mirxplor sequences and the updates names
     filter(mi_rna == id | is.na(id)) %>% # only allow families where annotation is equal to expected
     annotate %>%
     group_by(mi_rna, sample) %>% # remove miRNAs that have more than one spike in in the family
     mutate(any_in_mirx = sum(grepl("hsa-", id)),
            mirx_counts = length(unique(id[!is.na(id)]))) %>% 
     ungroup() %>% 
-    filter(any_in_mirx == 1, mirx_counts == 1) %>%  # where the reference appears once
+    filter(any_in_mirx == 1, mirx_counts == 1) %>%  # where the miRNA matches only once with the mirxplor sequences
     left_join(normalized, by = c("sample", "read")) %>% 
     mutate(lab=stringr::str_extract(sample,"lab[0-9]"),
            protocol=stringr::str_remove_all(sample, "_.*$"),
@@ -141,11 +142,11 @@ normalized = norm(gff_mirge, "data/th_gffmirge.rda")
 
 equimolar_mirge = gff_mirge %>% 
     left_join(mirx_labeled, by = c("read" = "sequence")) %>% 
-    filter(mi_rna == id | is.na(id)) %>% # only allow families where annotation is equal to expected 
+    filter(mi_rna == id | is.na(id)) %>% # only allow families where annotation is equal to expected in mirxplor (same id in the analysis and mirxplor file)
     annotate %>%
     group_by(mi_rna, sample) %>% # remove miRNAs that have more than one spike in in the family
-    mutate(any_in_mirx = sum(grepl("hsa-", id)),
-       mirx_counts = length(unique(id[!is.na(id)]))) %>% 
+    mutate(any_in_mirx = sum(grepl("hsa-", id)), # numbers of human mirnas matching the mirxplor sample. Ideally one per miRNA if the mirna has not similarity with others
+       mirx_counts = length(unique(id[!is.na(id)]))) %>% # numbers of mirnas matching the mirxplor sample. Ideally one per miRNA...
     ungroup() %>% 
     filter(any_in_mirx == 1, mirx_counts == 1) %>% 
     left_join(normalized, by = c("sample", "read")) %>% 
