@@ -113,7 +113,7 @@ normalized = norm(gff, "data/th_gff.rda")
 # get all sequence that are hsa annotated or not in mirx(remove potential crossmapping)
 equimolar = gff %>% 
     left_join(mirx_labeled, by = c("read" = "sequence"))  %>% # mirx_labeled defined in line 14, it contains the mirxplor sequences and the updates names
-    filter(mi_rna == id | is.na(id)) %>% # only allow families where annotation is equal to expected
+    filter(mi_rna == id | is.na(id)) %>% # only allow families where annotation is equal to expected or a variant if is NA
     annotate %>%
     group_by(mi_rna, sample) %>% # remove miRNAs that have more than one spike in in the family
     mutate(any_in_mirx = sum(grepl("hsa-", id)),
