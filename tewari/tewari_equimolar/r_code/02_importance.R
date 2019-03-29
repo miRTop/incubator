@@ -2,7 +2,7 @@ library(tidyverse)
 library(ggplot2)
 library(pheatmap)
 theme_set(
-    theme_light(base_size = 11L))
+    theme_light(base_size = 16L))
 theme_update(
     legend.justification = "center",
     legend.position = "bottom")
@@ -13,7 +13,10 @@ prepare =  . %>% filter(ref_is_1 == 1) %>%
     group_by(sample, protocol) %>% 
     mutate(pct_total = n/sum(n)*100,
            iso = ifelse(grepl("snp ", iso), "snp + other", iso),
-           iso = ifelse(grepl("add3p ", iso), "add3p + other", iso))
+           iso = ifelse(grepl("add3p ", iso), "add3p + other", iso),
+           iso = gsub("shift", "iso_", iso),
+           iso = gsub("snp", "snv", iso),
+           iso=relevel(as.factor(iso), "reference"))
 
 equimolar_razer3 %>% 
     prepare() %>% 
@@ -23,7 +26,7 @@ equimolar_razer3 %>%
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
     scale_fill_manual("IMPORTANCE", values = RColorBrewer::brewer.pal(7, "Dark2")) +
     ggtitle("isomiRs importance by type") +
-    ylab("PCT") +
+    ylab("% of sequences") +
     ggsave("results/02_importance/02_importance.pdf", height = 9)
 
 
@@ -37,10 +40,8 @@ equimolar_razer3 %>%
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
     scale_fill_manual("IMPORTANCE", values = RColorBrewer::brewer.pal(7, "Dark2")) +
     ggtitle("isomiRs importance by type (miRNAs > 1000 counts)") +
-    ylab("PCT") +
+    ylab("% of sequences") +
     ggsave("results/02_importance/02_importance_1000.pdf", height = 9)
-
-
 
 full_join(
 equimolar_razer3 %>% 
@@ -72,7 +73,7 @@ equimolar_razer3 %>%
     facet_wrap(~iso, nrow = 4, scales = "free_y") +
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
     scale_fill_manual("IMPORTANCE", values = RColorBrewer::brewer.pal(7, "Dark2")[3:7]) +
-    ylab("PCT") +
+    ylab("% of sequences") +
     ggtitle("isomiRs importance by type with pct > 1") +
     ggsave("results/02_importance/02_importance_pct_g1.pdf", height = 9)
 
@@ -85,7 +86,7 @@ equimolar_razer3 %>%
     theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) +
     scale_fill_manual("IMPORTANCE", values = RColorBrewer::brewer.pal(7, "Dark2")[3:7]) +
     ggtitle("isomiRs importance by type (miRNAs > 1000 counts)") +
-    ylab("PCT") +
+    ylab("% of sequences") +
     ggsave("results/02_importance/02_importance_1000_pct_g1.pdf", height = 9)
 
 

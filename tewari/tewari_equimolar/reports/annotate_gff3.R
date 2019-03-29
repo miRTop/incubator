@@ -1,6 +1,6 @@
 library(tidyverse)
 library(seqinr)
-source("seqThreshold.R")
+source("r_code/seqThreshold.R")
 mirbase = read.fasta(file = "data/mature.fa.gz", as.string = TRUE, forceDNAtolower = FALSE)
 
 mirbase_df = data.frame(id = names(mirbase),
@@ -283,8 +283,57 @@ vandijk = gffv %>%
     unite("short", c("protocol", "lab", "index"), remove = FALSE) %>% 
     select(-index) %>% 
     distinct() %>% 
-    analysis
+    analysis %>% 
+    mutate(replicate=stringr::str_extract(short, "[0-9]{1,2$"))
 
-save(equimolar_razer3, vandijk, custom, plasma, equimolar, equimolar_mirge, dsrg,
+
+# narrykim
+gffnk = read_tsv("tools/narrykim/spikeins/mirtop.tsv.gz") %>% 
+    janitor::clean_names() %>%
+    filter(nchar(iso_snp_nt) < 5)
+normalized = norm(gffnk, "data/th_gffnk.rda")
+
+
+narrykim = gffnk %>% 
+    rename(iso_add=iso_add3p,
+           iso_add_nt=iso_add3p_nt) %>% 
+    # distinct(read, mi_rna, .keep_all = TRUE) %>%
+    mutate(id = mi_rna) %>% 
+    annotate %>% 
+    inner_join(normalized, by = c("sample", "read")) %>% 
+    mutate(lab=stringr::str_extract(sample,"^\\w{1,4}_"),
+           protocol=stringr::str_extract(sample, "_\\w{1,2}_"),
+           index =stringr::str_extract(sample, "[0-9]$")) %>% 
+    mutate(short=sample) %>% 
+    select(-index) %>% 
+    distinct() %>% 
+    analysis %>% 
+    mutate(replicate=stringr::str_extract(short, "[0-9]$"))
+
+
+# narrykim2
+gffnk = read_tsv("tools/narrykim/human/mirtop.tsv.gz") %>% 
+    janitor::clean_names() %>%
+    filter(nchar(iso_snp_nt) < 5)
+normalized = norm(gffnk, "data/th_gffnk2.rda")
+
+
+narrykim_human = gffnk %>% 
+    dplyr::rename(iso_add=iso_add3p,
+           iso_add_nt=iso_add3p_nt) %>% 
+    # distinct(read, mi_rna, .keep_all = TRUE) %>%
+    mutate(id = mi_rna) %>% 
+    annotate %>% 
+    inner_join(normalized, by = c("sample", "read")) %>% 
+    mutate(lab=stringr::str_extract(sample,"^\\w{1,4}_"),
+           protocol=stringr::str_extract(sample, "_\\w{1,2}_"),
+           index =stringr::str_extract(sample, "[0-9]$")) %>% 
+    mutate(short=sample) %>% 
+    select(-index) %>% 
+    distinct() %>% 
+    analysis %>% 
+    mutate(replicate=stringr::str_extract(short, "[0-9]$"))
+
+
+save(equimolar_razer3, gffnk, vandijk, custom, plasma, equimolar, equimolar_mirge, dsrg, narrykim, narrykim_human,
      file = "data/data_gff.rda")
-
