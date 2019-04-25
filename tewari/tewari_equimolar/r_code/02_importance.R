@@ -127,4 +127,3 @@ equimolar_razer3 %>%
     scale_fill_manual(values = RColorBrewer::brewer.pal(7, "Dark2")[2:7]) +
     ggtitle("isomiRs abundance by type with pct > 1") +
     ggsave("results/02_importance/02_abundance_pct_g1.pdf", height = 9)
-
